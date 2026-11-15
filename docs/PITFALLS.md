@@ -4,7 +4,7 @@
 在 docs/TOOLCHAIN-NOTES.md 里，签名材料的一致性规则在 signing/README.md 里，这里不重复。
 
 跑通时的环境（复现时先对一遍）
-  工程目录   C:\Users\21996\Documents\Qoder\2026-11-14\8475e7b0\ohos-kiosk（不是 git 仓库）
+  工程目录   D:\ohos-kiosk（GitHub: Yuanyuan669/ohos-kiosk，2026-11-15 从临时目录迁入）
   IDE        D:\DevEcoStudio（26.0.1.290，只当编辑器和设备管理器用，不参与编译）
   编译目标   D:\ohos-tools\sdk\openharmony → 4.0-Release / API 10（ets + js + toolchains）
   hvigor     D:\ohos-tools\hvigor-3.2.4（不能用 IDE 自带的 6.26.x）

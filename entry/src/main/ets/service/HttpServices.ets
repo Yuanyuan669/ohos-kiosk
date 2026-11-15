@@ -121,6 +121,9 @@ const SINA_URL: string =
 const SINA_REFERER: string = 'https://finance.sina.com.cn';
 const SUMMARY_FALLBACKS: string[] = [
   'https://raw.githubusercontent.com/Yuanyuan669/ohos-kiosk/main/feed/kiosk_summary.json',
+  'https://ghproxy.net/https://raw.githubusercontent.com/Yuanyuan669/ohos-kiosk/main/feed/kiosk_summary.json',
+  'https://ghfast.top/https://raw.githubusercontent.com/Yuanyuan669/ohos-kiosk/main/feed/kiosk_summary.json',
+  'https://cdn.statically.io/gh/Yuanyuan669/ohos-kiosk/main/feed/kiosk_summary.json',
   'https://cdn.jsdelivr.net/gh/Yuanyuan669/ohos-kiosk@main/feed/kiosk_summary.json'
 ];
 

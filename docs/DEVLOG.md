@@ -13,13 +13,16 @@
 - 数据源分成两层：
   - TradingMaster 生成的 `kiosk_summary.json`（A 股情绪、自选、舆情，小体积）；
   - 新浪行情接口（港股 / 美股 / 商品指数，设备直连，GBK 响应只取数值字段）。
-- 设备网络实测 `*.workers.dev` 被解析到不可达地址，因此 kiosk 默认读 GitHub
-  公共 feed，并保留 jsDelivr 兜底；不把设备绑定到单一被墙域名。
+- 设备网络实测 `*.workers.dev` 被解析到不可达地址、GitHub raw 直连报
+  `Unknown Other Error`，因此 kiosk 使用「镜像列表」：默认 gh-proxy.com，
+  失败后依次尝试 raw / ghproxy.net / ghfast.top / statically / jsDelivr，
+  不把设备绑定到单一域名。
 
 ### 实现
 1. `service/HttpServices.ets`
-   - 新增 `StockService.fetchSummary()`：依次尝试设置 URL、GitHub raw feed、
-     jsDelivr feed，单个失败继续下一个；全部失败返回 null。
+   - 新增 `StockService.fetchSummary()`：依次尝试设置 URL 和镜像列表
+     （raw / ghproxy / ghfast / statically / jsDelivr），单个失败继续下一个；
+     全部失败返回 null。
    - 新增 `StockService.fetchGlobals()`：请求新浪
      `hq.sinajs.cn`，带 Referer；解析上证/深成/创业板、恒生、道指、纳指、
      标普、黄金、白银、WTI、布伦特。
@@ -37,7 +40,7 @@
 4. `common/SettingsStore.ets` + `pages/Settings.ets`
    - 新增 `stockEnabled`、`stockSummaryUrl`、`stockRefreshSec`；
    - 设置页支持启停、feed URL、刷新间隔（最小 60 秒）；
-   - 默认 feed：`https://raw.githubusercontent.com/Yuanyuan669/ohos-kiosk/main/feed/kiosk_summary.json`。
+   - 默认 feed：`https://gh-proxy.com/https://raw.githubusercontent.com/Yuanyuan669/ohos-kiosk/main/feed/kiosk_summary.json`。
 5. `feed/kiosk_summary.json`
    - 由 TradingMaster `scripts/build_kiosk_summary.py` 生成后热更新到本仓库；
      仅含公开市场汇总，不含账户、持仓、token。
@@ -47,7 +50,7 @@
   LHT16（API 11）。
 - 用本地 HTTP feed 验证 4 页均正常：A 股指数与情绪、自选股涨跌、全球/商品、
   舆情/正负新闻数；点击卡片翻页有效。
-- 线上 feed 直连验证：`data/kiosk_summary.json` 返回 200，
+- 线上 feed 验证：GitHub raw 直连失败，`gh-proxy.com` 镜像返回 200；
   `generated_at=2026-11-15T22:46:59+08:00`，market date `2026-11-13`。
 - 线上 feed 不可达时回退照片轮播，天气/照片/退出按钮未受影响。
 

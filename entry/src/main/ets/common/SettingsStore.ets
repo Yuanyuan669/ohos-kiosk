@@ -29,7 +29,7 @@ export class Settings {
   keepScreenOn: boolean = true;
   landscape: boolean = true;
   stockEnabled: boolean = true;
-  stockSummaryUrl: string = 'https://raw.githubusercontent.com/Yuanyuan669/ohos-kiosk/main/feed/kiosk_summary.json';
+  stockSummaryUrl: string = 'https://gh-proxy.com/https://raw.githubusercontent.com/Yuanyuan669/ohos-kiosk/main/feed/kiosk_summary.json';
   stockRefreshSec: number = 300;
 }
 

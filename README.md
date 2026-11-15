@@ -133,6 +133,7 @@ HomeKiosk — 把开发者手机变成家庭信息屏，并把构建到装机做
   signing/                  生成出来的签名材料，已被 .gitignore 排除，只留 README
   docs/TOOLCHAIN-NOTES.md   工具链选型记录与被排除的下载源（避免再踩 403 的坑）
   docs/PITFALLS.md          上板实录：构建/签名/装机/推照片/网络各阶段踩过的坑与修法
+  docs/DEVLOG.md            开发日志：2026-11-15 起的改动、验证与已知限制
   docs/DEVICE.md            设备档案：实测版本/硬件/调试状态/常用命令/刷机与备份原则
   assets/photos/            照片投递暂存目录
   tools/feed-mock.js        本地假信息源，验证链路用

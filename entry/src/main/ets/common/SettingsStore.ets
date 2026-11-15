@@ -13,17 +13,24 @@ export const KEY_FEED_INTERVAL: string = 'feedIntervalSec';
 export const KEY_NOTES: string = 'notesJson';
 export const KEY_KEEP_SCREEN_ON: string = 'keepScreenOn';
 export const KEY_LANDSCAPE: string = 'landscape';
+export const KEY_LOCATION_VERSION: string = 'locationVersion';
+export const KEY_STOCK_ENABLED: string = 'stockEnabled';
+export const KEY_STOCK_SUMMARY_URL: string = 'stockSummaryUrl';
+export const KEY_STOCK_REFRESH: string = 'stockRefreshSec';
 
 export class Settings {
-  lat: number = 39.9042;
-  lon: number = 116.4074;
-  city: string = 'Beijing';
+  lat: number = 22.5431;
+  lon: number = 114.0579;
+  city: string = '深圳';
   weatherIntervalSec: number = 900;
   feedUrl: string = '';
   feedIntervalSec: number = 60;
   notes: string[] = ['推送照片: 在电脑上运行 bash scripts/push-photos.sh'];
   keepScreenOn: boolean = true;
   landscape: boolean = true;
+  stockEnabled: boolean = true;
+  stockSummaryUrl: string = 'https://raw.githubusercontent.com/Yuanyuan669/ohos-kiosk/main/feed/kiosk_summary.json';
+  stockRefreshSec: number = 300;
 }
 
 export class SettingsStore {
@@ -43,10 +50,24 @@ export class SettingsStore {
       s.feedIntervalSec = await p.get(KEY_FEED_INTERVAL, s.feedIntervalSec) as number;
       s.keepScreenOn = await p.get(KEY_KEEP_SCREEN_ON, s.keepScreenOn) as boolean;
       s.landscape = await p.get(KEY_LANDSCAPE, s.landscape) as boolean;
+      s.stockEnabled = await p.get(KEY_STOCK_ENABLED, s.stockEnabled) as boolean;
+      s.stockSummaryUrl = await p.get(KEY_STOCK_SUMMARY_URL, s.stockSummaryUrl) as string;
+      s.stockRefreshSec = await p.get(KEY_STOCK_REFRESH, s.stockRefreshSec) as number;
       const notesRaw: string = await p.get(KEY_NOTES, '[]') as string;
       const parsed: string[] = JSON.parse(notesRaw) as string[];
       if (parsed.length > 0) {
         s.notes = parsed;
+      }
+      const locVersion: number = await p.get(KEY_LOCATION_VERSION, 0) as number;
+      if (locVersion < 1) {
+        s.city = '深圳';
+        s.lat = 22.5431;
+        s.lon = 114.0579;
+        await p.put(KEY_CITY, s.city);
+        await p.put(KEY_LAT, s.lat);
+        await p.put(KEY_LON, s.lon);
+        await p.put(KEY_LOCATION_VERSION, 1);
+        await p.flush();
       }
     } catch (e) {
       Log.warn('settings load failed, using defaults: ' + (e as Error).message);
@@ -65,7 +86,11 @@ export class SettingsStore {
       await p.put(KEY_FEED_INTERVAL, s.feedIntervalSec);
       await p.put(KEY_KEEP_SCREEN_ON, s.keepScreenOn);
       await p.put(KEY_LANDSCAPE, s.landscape);
+      await p.put(KEY_STOCK_ENABLED, s.stockEnabled);
+      await p.put(KEY_STOCK_SUMMARY_URL, s.stockSummaryUrl);
+      await p.put(KEY_STOCK_REFRESH, s.stockRefreshSec);
       await p.put(KEY_NOTES, JSON.stringify(s.notes));
+      await p.put(KEY_LOCATION_VERSION, 1);
       await p.flush();
       Log.info('settings saved');
     } catch (e) {

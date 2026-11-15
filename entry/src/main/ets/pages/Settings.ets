@@ -20,6 +20,9 @@ struct SettingsPage {
   @State notesText: string = '';
   @State keepScreenOn: boolean = true;
   @State landscape: boolean = true;
+  @State stockEnabled: boolean = true;
+  @State stockSummaryUrl: string = '';
+  @State stockRefreshText: string = '';
   @State photoDir: string = '';
   @State deviceLine: string = '';
 
@@ -38,6 +41,9 @@ struct SettingsPage {
       this.notesText = s.notes.join('\n');
       this.keepScreenOn = s.keepScreenOn;
       this.landscape = s.landscape;
+      this.stockEnabled = s.stockEnabled;
+      this.stockSummaryUrl = s.stockSummaryUrl;
+      this.stockRefreshText = '' + s.stockRefreshSec;
     });
   }
 
@@ -60,6 +66,9 @@ struct SettingsPage {
     s.feedIntervalSec = Math.max(15, Math.round(this.num(this.feedIntervalText, 60)));
     s.keepScreenOn = this.keepScreenOn;
     s.landscape = this.landscape;
+    s.stockEnabled = this.stockEnabled;
+    s.stockSummaryUrl = this.stockSummaryUrl.trim();
+    s.stockRefreshSec = Math.max(60, Math.round(this.num(this.stockRefreshText, 300)));
     const split: string[] = this.notesText.split('\n');
     const notes: string[] = [];
     for (let i = 0; i < split.length; i++) {
@@ -191,6 +200,51 @@ struct SettingsPage {
               .layoutWeight(1)
               .onChange((v: string) => {
                 this.feedIntervalText = v;
+              })
+          }
+          .width('100%')
+
+          Row({ space: 10 }) {
+            Text('启用股市面板')
+              .fontSize(14)
+              .fontColor($r('app.color.kiosk_text_secondary'))
+              .layoutWeight(1)
+            Toggle({ type: ToggleType.Switch, isOn: this.stockEnabled })
+              .onChange((isOn: boolean) => {
+                this.stockEnabled = isOn;
+              })
+          }
+          .width('100%')
+
+          Row({ space: 10 }) {
+            Text('股市汇总 URL')
+              .fontSize(14)
+              .fontColor($r('app.color.kiosk_text_secondary'))
+              .width(110)
+            TextInput({ text: this.stockSummaryUrl, placeholder: 'kiosk_summary.json' })
+              .fontSize(11)
+              .backgroundColor($r('app.color.kiosk_card'))
+              .fontColor($r('app.color.kiosk_text_primary'))
+              .layoutWeight(1)
+              .onChange((v: string) => {
+                this.stockSummaryUrl = v;
+              })
+          }
+          .width('100%')
+
+          Row({ space: 10 }) {
+            Text('股市刷新秒')
+              .fontSize(14)
+              .fontColor($r('app.color.kiosk_text_secondary'))
+              .width(110)
+            TextInput({ text: this.stockRefreshText, placeholder: '最小 60' })
+              .type(InputType.Number)
+              .fontSize(14)
+              .backgroundColor($r('app.color.kiosk_card'))
+              .fontColor($r('app.color.kiosk_text_primary'))
+              .layoutWeight(1)
+              .onChange((v: string) => {
+                this.stockRefreshText = v;
               })
           }
           .width('100%')

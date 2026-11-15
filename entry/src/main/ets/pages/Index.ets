@@ -5,11 +5,15 @@ import deviceInfo from '@ohos.deviceInfo';
 import { Log } from '../common/Logger';
 import { pad, stamp, windName, WEEKDAYS } from '../common/Format';
 import { SettingsStore, Settings } from '../common/SettingsStore';
-import { WeatherService, FeedService } from '../service/HttpServices';
+import { WeatherService, FeedService, StockService } from '../service/HttpServices';
 import { PhotoSource } from '../service/PhotoSource';
-import { WeatherSnapshot, FeedSnapshot } from '../model/Types';
+import {
+  WeatherSnapshot, FeedSnapshot, KioskSummary, GlobalQuote,
+  KioskIndex, KioskWatch, KioskNewsItem
+} from '../model/Types';
 
 const PHOTO_ROTATE_SEC: number = 15;
+const STOCK_PAGE_SEC: number = 20;
 const RETRY_SEC: number = 120;
 const APP_VERSION: string = '1.0.0';
 
@@ -28,15 +32,22 @@ struct Index {
   @State photo: image.PixelMap | null = null;
   @State photoIndex: number = 0;
   @State photoCount: number = 0;
+  @State stock: KioskSummary | null = null;
+  @State globals: GlobalQuote[] = [];
+  @State fallbackIndices: KioskIndex[] = [];
+  @State stockPage: number = 0;
   @State statusText: string = '启动';
   private settings: Settings = new Settings();
   private paths: string[] = [];
   private nextWeatherAt: number = 0;
   private nextFeedAt: number = 0;
   private nextPhotoAt: number = 0;
+  private nextStockAt: number = 0;
+  private nextStockPageAt: number = 0;
   private tickId: number = -1;
   private busyWeather: boolean = false;
   private busyFeed: boolean = false;
+  private busyStock: boolean = false;
 
   aboutToAppear(): void {
     const ctx: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
@@ -47,6 +58,7 @@ struct Index {
       this.notes = s.notes;
       this.reloadPhotos(ctx);
       this.heartbeat(Date.now());
+      this.refreshStock();
     });
     this.tickId = setInterval(() => {
       this.onTick();
@@ -69,6 +81,7 @@ struct Index {
       this.cityText = s.city;
       this.notes = s.notes;
       this.reloadPhotos(ctx);
+      this.refreshStock();
       Log.info('settings reloaded after page show');
     });
   }
@@ -94,6 +107,13 @@ struct Index {
     }
     if (this.photoCount > 1 && now >= this.nextPhotoAt) {
       this.stepPhoto(now, 1);
+    }
+    if (this.settings.stockEnabled && now >= this.nextStockAt) {
+      this.refreshStock();
+    }
+    if (this.stock !== null && now >= this.nextStockPageAt) {
+      this.stockPage = (this.stockPage + 1) % this.stockPageCount();
+      this.nextStockPageAt = now + STOCK_PAGE_SEC * 1000;
     }
   }
 
@@ -136,6 +156,94 @@ struct Index {
     });
   }
 
+  stockPageCount(): number {
+    return 4;
+  }
+
+  refreshStock(): void {
+    if (!this.settings.stockEnabled || this.settings.stockSummaryUrl.length === 0) {
+      this.stock = null;
+      this.globals = [];
+      this.fallbackIndices = [];
+      return;
+    }
+    if (this.busyStock) {
+      return;
+    }
+    this.busyStock = true;
+    StockService.fetchSummary(this.settings.stockSummaryUrl).then((s: KioskSummary | null) => {
+      if (s === null) {
+        this.stock = null;
+        this.globals = [];
+        this.fallbackIndices = [];
+        this.nextStockAt = Date.now() + RETRY_SEC * 1000;
+        this.busyStock = false;
+        return;
+      }
+      this.stock = s;
+      if (this.stockPage >= this.stockPageCount()) {
+        this.stockPage = 0;
+      }
+      this.nextStockAt = Date.now() + Math.max(60, this.settings.stockRefreshSec) * 1000;
+      if (this.nextStockPageAt === 0) {
+        this.nextStockPageAt = Date.now() + STOCK_PAGE_SEC * 1000;
+      }
+      this.busyStock = false;
+      this.refreshGlobals();
+    });
+  }
+
+  refreshGlobals(): void {
+    StockService.fetchGlobals().then((g: GlobalQuote[]) => {
+      const indexes: KioskIndex[] = [];
+      const rest: GlobalQuote[] = [];
+      for (let i = 0; i < g.length; i++) {
+        if (g[i].key.indexOf('s_') === 0) {
+          indexes.push(this.toIndex(g[i]));
+        } else {
+          rest.push(g[i]);
+        }
+      }
+      this.fallbackIndices = indexes;
+      this.globals = rest;
+    });
+  }
+
+  toIndex(q: GlobalQuote): KioskIndex {
+    let pct: number = 0;
+    if (q.pct.length > 0) {
+      const raw: string = q.pct.endsWith('%') ? q.pct.substring(0, q.pct.length - 1) : q.pct;
+      const parsed: number = Number(raw);
+      if (!Number.isNaN(parsed)) {
+        pct = parsed;
+      }
+    }
+    const price: number = Number(q.price);
+    const index: KioskIndex = {
+      name: q.name,
+      close: Number.isNaN(price) ? 0 : price,
+      pct: pct
+    };
+    return index;
+  }
+
+  stockTitle(): string {
+    if (this.stockPage === 0) {
+      return 'A 股 · 市场';
+    }
+    if (this.stockPage === 1) {
+      return '自选股';
+    }
+    if (this.stockPage === 2) {
+      return '全球 / 商品';
+    }
+    return 'FlashQuant · 舆情';
+  }
+
+  pctText(pct: number): string {
+    return (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
+  }
+
   reloadPhotos(ctx: common.UIAbilityContext): void {
     PhotoSource.ensureDir(ctx);
     this.paths = PhotoSource.list(ctx);
@@ -169,6 +277,44 @@ struct Index {
     });
   }
 
+  private weatherIcon(): string {
+    const t: string = this.weatherText;
+    if (t === '晴') {
+      return '☀️';
+    }
+    if (t === '少云') {
+      return '🌤️';
+    }
+    if (t === '多云') {
+      return '⛅';
+    }
+    if (t === '阴') {
+      return '☁️';
+    }
+    if (t === '雾' || t === '霾') {
+      return '🌫️';
+    }
+    if (t === '毛毛雨' || t === '小雨' || t === '大雨' || t === '雨') {
+      return '🌧️';
+    }
+    if (t === '阵雨' || t === '局部有雨雪') {
+      return '🌦️';
+    }
+    if (t === '雷雨' || t === '雷阵雨') {
+      return '⛈️';
+    }
+    if (t === '雪' || t === '阵雪' || t === '雨夹雪') {
+      return '🌨️';
+    }
+    if (t === '离线') {
+      return '📡';
+    }
+    if (t === '连接中') {
+      return '🌐';
+    }
+    return '🌡️';
+  }
+
   build() {
     Column({ space: 12 }) {
       this.Header()
@@ -181,7 +327,7 @@ struct Index {
         .height('100%')
 
         Column({ space: 12 }) {
-          this.PhotoCard()
+          this.MediaCard()
           this.NoteCard()
         }
         .layoutWeight(1)
@@ -189,8 +335,6 @@ struct Index {
       }
       .layoutWeight(1)
       .width('100%')
-
-      this.Footer()
     }
     .width('100%')
     .height('100%')
@@ -228,6 +372,17 @@ struct Index {
         .onClick(() => {
           router.pushUrl({ url: 'pages/Settings' });
         })
+      Button('退出')
+        .fontSize(14)
+        .backgroundColor($r('app.color.kiosk_card'))
+        .fontColor($r('app.color.kiosk_warn'))
+        .margin({ left: 8 })
+        .onClick(() => {
+          const ctx: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+          ctx.terminateSelf().catch((e: Error) => {
+            Log.warn('terminateSelf failed: ' + e.message);
+          });
+        })
     }
     .width('100%')
     .height(72)
@@ -248,6 +403,9 @@ struct Index {
         Text(this.weatherText)
           .fontSize(20)
           .fontColor($r('app.color.kiosk_accent'))
+        Blank()
+        Text(this.weatherIcon())
+          .fontSize(58)
       }
       Text(this.weatherDetail)
         .fontSize(13)
@@ -297,11 +455,245 @@ struct Index {
   }
 
   @Builder
+  MediaCard() {
+    if (this.stock !== null) {
+      this.StockCard()
+    } else {
+      this.PhotoCard()
+    }
+  }
+
+  @Builder
+  StockCard() {
+    Column({ space: 6 }) {
+      Row() {
+        Text(this.stockTitle())
+          .fontSize(13)
+          .fontColor($r('app.color.kiosk_text_secondary'))
+        Blank()
+        Text((this.stockPage + 1) + ' / ' + this.stockPageCount())
+          .fontSize(11)
+          .fontColor($r('app.color.kiosk_text_secondary'))
+      }
+      .width('100%')
+
+      if (this.stockPage === 0) {
+        this.MarketPanel()
+      } else if (this.stockPage === 1) {
+        this.WatchPanel()
+      } else if (this.stockPage === 2) {
+        this.GlobalPanel()
+      } else {
+        this.NewsPanel()
+      }
+    }
+    .alignItems(HorizontalAlign.Start)
+    .width('100%')
+    .layoutWeight(1)
+    .padding(14)
+    .borderRadius(16)
+    .backgroundColor($r('app.color.kiosk_card'))
+    .onClick(() => {
+      this.stockPage = (this.stockPage + 1) % this.stockPageCount();
+      this.nextStockPageAt = Date.now() + STOCK_PAGE_SEC * 1000;
+    })
+  }
+
+  @Builder
+  MarketPanel() {
+    Column({ space: 4 }) {
+      if (this.stock !== null && this.stock.market.indices.length > 0) {
+        ForEach(this.stock.market.indices, (item: KioskIndex) => {
+          Row() {
+            Text(item.name)
+              .fontSize(14)
+              .fontColor($r('app.color.kiosk_text_primary'))
+              .width(72)
+            Text(item.close.toFixed(2))
+              .fontSize(14)
+              .fontColor($r('app.color.kiosk_text_primary'))
+              .layoutWeight(1)
+              .textAlign(TextAlign.End)
+            Text(this.pctText(item.pct))
+              .fontSize(13)
+              .fontColor(item.pct >= 0 ? $r('app.color.kiosk_ok') : $r('app.color.kiosk_err'))
+              .width(66)
+              .textAlign(TextAlign.End)
+          }
+          .width('100%')
+        }, (item: KioskIndex) => item.name)
+      } else if (this.fallbackIndices.length > 0) {
+        ForEach(this.fallbackIndices, (item: KioskIndex) => {
+          Row() {
+            Text(item.name)
+              .fontSize(14)
+              .fontColor($r('app.color.kiosk_text_primary'))
+              .width(72)
+            Text(item.close.toFixed(2))
+              .fontSize(14)
+              .fontColor($r('app.color.kiosk_text_primary'))
+              .layoutWeight(1)
+              .textAlign(TextAlign.End)
+            Text(this.pctText(item.pct))
+              .fontSize(13)
+              .fontColor(item.pct >= 0 ? $r('app.color.kiosk_ok') : $r('app.color.kiosk_err'))
+              .width(66)
+              .textAlign(TextAlign.End)
+          }
+          .width('100%')
+        }, (item: KioskIndex) => item.name)
+      } else {
+        Text('指数数据待更新')
+          .fontSize(14)
+          .fontColor($r('app.color.kiosk_text_secondary'))
+      }
+      Divider()
+        .color($r('app.color.kiosk_border'))
+        .margin({ top: 4, bottom: 4 })
+      if (this.stock !== null) {
+        Row() {
+          Text('成交 ' + (this.stock.market.turnover_yi / 10000).toFixed(2) + ' 万亿')
+            .fontSize(13)
+            .fontColor($r('app.color.kiosk_text_secondary'))
+          Blank()
+          Text('情绪 ' + this.stock.market.sentiment_score + ' · ' + this.stock.market.sentiment_label)
+            .fontSize(13)
+            .fontColor($r('app.color.kiosk_accent'))
+        }
+        .width('100%')
+        Row() {
+          Text('涨 ' + this.stock.market.up_count + ' / 跌 ' + this.stock.market.down_count)
+            .fontSize(12)
+            .fontColor($r('app.color.kiosk_text_secondary'))
+          Blank()
+          Text(this.stock.market.date)
+            .fontSize(11)
+            .fontColor($r('app.color.kiosk_text_secondary'))
+        }
+        .width('100%')
+      }
+    }
+    .alignItems(HorizontalAlign.Start)
+    .width('100%')
+    .layoutWeight(1)
+  }
+
+  @Builder
+  WatchPanel() {
+    Column({ space: 3 }) {
+      if (this.stock !== null && this.stock.watchlist.length > 0) {
+        ForEach(this.stock.watchlist.slice(0, 7), (item: KioskWatch) => {
+          Row() {
+            Text(item.name)
+              .fontSize(13)
+              .fontColor($r('app.color.kiosk_text_primary'))
+              .width(88)
+              .maxLines(1)
+              .textOverflow({ overflow: TextOverflow.Ellipsis })
+            Text(item.symbol)
+              .fontSize(11)
+              .fontColor($r('app.color.kiosk_text_secondary'))
+              .width(58)
+            Text(item.price.toFixed(2))
+              .fontSize(13)
+              .fontColor($r('app.color.kiosk_text_primary'))
+              .layoutWeight(1)
+              .textAlign(TextAlign.End)
+            Text(this.pctText(item.pct))
+              .fontSize(13)
+              .fontColor(item.pct >= 0 ? $r('app.color.kiosk_ok') : $r('app.color.kiosk_err'))
+              .width(66)
+              .textAlign(TextAlign.End)
+          }
+          .width('100%')
+        }, (item: KioskWatch) => item.symbol + item.name)
+      } else {
+        Text('自选股数据待更新')
+          .fontSize(14)
+          .fontColor($r('app.color.kiosk_text_secondary'))
+      }
+    }
+    .alignItems(HorizontalAlign.Start)
+    .width('100%')
+    .layoutWeight(1)
+  }
+
+  @Builder
+  GlobalPanel() {
+    Column({ space: 3 }) {
+      if (this.globals.length > 0) {
+        ForEach(this.globals, (item: GlobalQuote) => {
+          Row() {
+            Text(item.name)
+              .fontSize(13)
+              .fontColor($r('app.color.kiosk_text_primary'))
+              .width(72)
+            Text(item.price)
+              .fontSize(13)
+              .fontColor($r('app.color.kiosk_text_primary'))
+              .layoutWeight(1)
+              .textAlign(TextAlign.End)
+            Text(item.pct.length > 0 ? item.pct : '—')
+              .fontSize(12)
+              .fontColor(item.pct.length === 0 ? $r('app.color.kiosk_text_secondary') :
+                (item.pct.indexOf('-') === 0 ? $r('app.color.kiosk_err') : $r('app.color.kiosk_ok')))
+              .width(72)
+              .textAlign(TextAlign.End)
+          }
+          .width('100%')
+        }, (item: GlobalQuote) => item.key)
+      } else {
+        Text('全球行情不可达')
+          .fontSize(14)
+          .fontColor($r('app.color.kiosk_text_secondary'))
+      }
+    }
+    .alignItems(HorizontalAlign.Start)
+    .width('100%')
+    .layoutWeight(1)
+  }
+
+  @Builder
+  NewsPanel() {
+    Column({ space: 4 }) {
+      if (this.stock !== null) {
+        Row() {
+          Text('新闻 ' + this.stock.news.kpi.total)
+            .fontSize(12)
+            .fontColor($r('app.color.kiosk_text_secondary'))
+          Blank()
+          Text('正 ' + this.stock.news.kpi.pos + ' / 负 ' + this.stock.news.kpi.neg)
+            .fontSize(12)
+            .fontColor($r('app.color.kiosk_text_secondary'))
+        }
+        .width('100%')
+        if (this.stock.news.top.length === 0) {
+          Text('舆情数据待更新')
+            .fontSize(14)
+            .fontColor($r('app.color.kiosk_text_secondary'))
+        } else {
+          ForEach(this.stock.news.top.slice(0, 4), (item: KioskNewsItem) => {
+            Text('· ' + item.title)
+              .fontSize(13)
+              .fontColor($r('app.color.kiosk_text_primary'))
+              .maxLines(2)
+              .textOverflow({ overflow: TextOverflow.Ellipsis })
+              .width('100%')
+          }, (item: KioskNewsItem) => item.ts + item.title)
+        }
+      }
+    }
+    .alignItems(HorizontalAlign.Start)
+    .width('100%')
+    .layoutWeight(1)
+  }
+
+  @Builder
   PhotoCard() {
     Stack() {
       if (this.photo !== null) {
         Image(this.photo)
-          .objectFit(ImageFit.Contain)
+          .objectFit(ImageFit.Cover)
           .width('100%')
           .height('100%')
       } else {

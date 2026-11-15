@@ -56,6 +56,103 @@ export interface FeedSnapshot {
   error: string;
 }
 
+export interface KioskIndex {
+  name: string;
+  close: number;
+  pct: number;
+}
+
+export interface KioskSector {
+  name: string;
+  pct: number;
+  net_in_yi: number;
+}
+
+export interface KioskMarket {
+  ok: boolean;
+  generated_at: string;
+  date: string;
+  turnover_yi: number;
+  sentiment_score: number;
+  sentiment_label: string;
+  up_count: number;
+  down_count: number;
+  advance_decline_ratio: number;
+  indices: KioskIndex[];
+  top_sectors: KioskSector[];
+}
+
+export interface KioskWatch {
+  symbol: string;
+  name: string;
+  price: number;
+  pct: number;
+  turnover_rate: number;
+  sw_l1?: string;
+  sw_l2?: string;
+}
+
+export interface KioskNewsItem {
+  ts: string;
+  source: string;
+  title: string;
+  impact: number;
+  sentiment: number;
+  theme: boolean;
+  symbols: string[];
+}
+
+export interface KioskAlert {
+  ts: string;
+  theme: string;
+  impact: number;
+  score: number;
+  source: string;
+}
+
+export interface KioskKpi {
+  total: number;
+  themed: number;
+  avg_impact: number;
+  pos: number;
+  neg: number;
+  alerts: number;
+  sources: number;
+}
+
+export interface KioskNews {
+  ok: boolean;
+  generated_at: string;
+  range: string;
+  kpi: KioskKpi;
+  top: KioskNewsItem[];
+  alerts: KioskAlert[];
+  warnings: string[];
+}
+
+export interface KioskStatus {
+  ok: boolean;
+  sentiment_at: string;
+  brief_at: string;
+  watchlist_at: string;
+  news_at: string;
+}
+
+export interface KioskSummary {
+  generated_at: string;
+  market: KioskMarket;
+  watchlist: KioskWatch[];
+  news: KioskNews;
+  status: KioskStatus;
+}
+
+export interface GlobalQuote {
+  key: string;
+  name: string;
+  price: string;
+  pct: string;
+}
+
 export class WeatherCodec {
   static parse(raw: string): WeatherSnapshot {
     const parsed: OpenMeteoResponse = JSON.parse(raw) as OpenMeteoResponse;

@@ -6,7 +6,7 @@ import util from '@ohos.util';
 import { Log } from '../common/Logger';
 import { pad, stamp, windName, WEEKDAYS } from '../common/Format';
 import { SettingsStore, Settings } from '../common/SettingsStore';
-import { WeatherService, FeedService, StockService } from '../service/HttpServices';
+import { WeatherService, FeedService, StockService, AirQualityService } from '../service/HttpServices';
 import { PhotoSource } from '../service/PhotoSource';
 import {
   WeatherSnapshot, FeedSnapshot, KioskSummary, GlobalQuote,
@@ -27,6 +27,7 @@ struct Index {
   @State tempText: string = '--';
   @State weatherText: string = '连接中';
   @State weatherDetail: string = '';
+  @State aqiValue: number = -1;
   @State feedTitle: string = '自定义信息源';
   @State feedLines: string[] = [];
   @State notes: string[] = [];
@@ -137,9 +138,13 @@ struct Index {
           + windName(w.windDirection);
         this.statusText = '天气已更新 ' + stamp(Date.now());
         this.nextWeatherAt = Date.now() + this.settings.weatherIntervalSec * 1000;
+        AirQualityService.fetch(this.settings.lat, this.settings.lon).then((aqi: number) => {
+          this.aqiValue = aqi;
+        });
       } else {
         this.weatherText = '离线';
         this.weatherDetail = w.error;
+        this.aqiValue = -1;
         this.statusText = '天气不可达，' + RETRY_SEC + 's 后重试';
         this.nextWeatherAt = Date.now() + RETRY_SEC * 1000;
       }
@@ -366,6 +371,26 @@ struct Index {
     return '？';
   }
 
+  private aqiText(): string {
+    if (this.aqiValue < 0) {
+      return 'AQI --';
+    }
+    return 'AQI ' + this.aqiValue;
+  }
+
+  private aqiColor(): ResourceColor {
+    if (this.aqiValue < 0) {
+      return $r('app.color.kiosk_text_secondary');
+    }
+    if (this.aqiValue <= 50) {
+      return $r('app.color.kiosk_ok');
+    }
+    if (this.aqiValue <= 100) {
+      return $r('app.color.kiosk_warn');
+    }
+    return $r('app.color.kiosk_err');
+  }
+
   private weatherIconColor(): ResourceColor {
     const t: string = this.weatherText;
     if (t === '离线') {
@@ -387,14 +412,14 @@ struct Index {
       Row({ space: 12 }) {
         Column({ space: 12 }) {
           this.WeatherCard()
-          this.FeedCard()
+          this.TodoCard()
         }
         .width('38%')
         .height('100%')
 
         Column({ space: 12 }) {
           this.MediaCard()
-          this.TodoCard()
+          this.FeedCard()
         }
         .layoutWeight(1)
         .height('100%')
@@ -470,9 +495,15 @@ struct Index {
           .fontSize(20)
           .fontColor($r('app.color.kiosk_accent'))
         Blank()
-        Text(this.weatherIcon())
-          .fontSize(54)
-          .fontColor(this.weatherIconColor())
+        Column({ space: 2 }) {
+          Text(this.weatherIcon())
+            .fontSize(50)
+            .fontColor(this.weatherIconColor())
+          Text(this.aqiText())
+            .fontSize(11)
+            .fontColor(this.aqiColor())
+        }
+        .alignItems(HorizontalAlign.End)
       }
       Text(this.weatherDetail)
         .fontSize(13)
@@ -512,12 +543,12 @@ struct Index {
           .width('100%')
         }
         .scrollable(ScrollDirection.Vertical)
-        .height(140)
+        .height(58)
       }
     }
     .alignItems(HorizontalAlign.Start)
     .width('100%')
-    .layoutWeight(1)
+    .height(100)
     .padding(14)
     .borderRadius(16)
     .backgroundColor($r('app.color.kiosk_card'))
@@ -649,40 +680,44 @@ struct Index {
 
   @Builder
   WatchPanel() {
-    Column({ space: 3 }) {
-      if (this.stock !== null && this.stock.watchlist.length > 0) {
-        ForEach(this.stock.watchlist.slice(0, 7), (item: KioskWatch) => {
-          Row() {
-            Text(item.name)
-              .fontSize(13)
-              .fontColor($r('app.color.kiosk_text_primary'))
-              .width(88)
-              .maxLines(1)
-              .textOverflow({ overflow: TextOverflow.Ellipsis })
-            Text(item.symbol)
-              .fontSize(11)
-              .fontColor($r('app.color.kiosk_text_secondary'))
-              .width(58)
-            Text(item.price.toFixed(2))
-              .fontSize(13)
-              .fontColor($r('app.color.kiosk_text_primary'))
-              .layoutWeight(1)
-              .textAlign(TextAlign.End)
-            Text(this.pctText(item.pct))
-              .fontSize(13)
-              .fontColor(item.pct >= 0 ? $r('app.color.kiosk_ok') : $r('app.color.kiosk_err'))
-              .width(66)
-              .textAlign(TextAlign.End)
-          }
-          .width('100%')
-        }, (item: KioskWatch) => item.symbol + item.name)
-      } else {
-        Text('自选股数据待更新')
-          .fontSize(14)
-          .fontColor($r('app.color.kiosk_text_secondary'))
+    Scroll() {
+      Column({ space: 3 }) {
+        if (this.stock !== null && this.stock.watchlist.length > 0) {
+          ForEach(this.stock.watchlist, (item: KioskWatch) => {
+            Row() {
+              Text(item.name)
+                .fontSize(13)
+                .fontColor($r('app.color.kiosk_text_primary'))
+                .width(88)
+                .maxLines(1)
+                .textOverflow({ overflow: TextOverflow.Ellipsis })
+              Text(item.symbol)
+                .fontSize(11)
+                .fontColor($r('app.color.kiosk_text_secondary'))
+                .width(58)
+              Text(item.price.toFixed(2))
+                .fontSize(13)
+                .fontColor($r('app.color.kiosk_text_primary'))
+                .layoutWeight(1)
+                .textAlign(TextAlign.End)
+              Text(this.pctText(item.pct))
+                .fontSize(13)
+                .fontColor(item.pct >= 0 ? $r('app.color.kiosk_ok') : $r('app.color.kiosk_err'))
+                .width(66)
+                .textAlign(TextAlign.End)
+            }
+            .width('100%')
+          }, (item: KioskWatch) => item.symbol + item.name)
+        } else {
+          Text('自选股数据待更新')
+            .fontSize(14)
+            .fontColor($r('app.color.kiosk_text_secondary'))
+        }
       }
+      .alignItems(HorizontalAlign.Start)
+      .width('100%')
     }
-    .alignItems(HorizontalAlign.Start)
+    .scrollable(ScrollDirection.Vertical)
     .width('100%')
     .layoutWeight(1)
   }
@@ -830,12 +865,12 @@ struct Index {
           .width('100%')
         }
         .scrollable(ScrollDirection.Vertical)
-        .height(104)
+        .layoutWeight(1)
       }
     }
     .alignItems(HorizontalAlign.Start)
     .width('100%')
-    .height(156)
+    .layoutWeight(1)
     .padding(14)
     .borderRadius(16)
     .backgroundColor($r('app.color.kiosk_card'))

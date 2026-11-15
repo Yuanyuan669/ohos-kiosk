@@ -6,6 +6,7 @@ import {
 import { Log } from '../common/Logger';
 
 const WEATHER_BASE: string = 'https://api.open-meteo.com/v1/forecast';
+const AQI_BASE: string = 'https://air-quality-api.open-meteo.com/v1/air-quality';
 // 备用源：open-meteo 走 Hetzner，国内不少出口直接 reset，这时代价小、无需 key 的 wttr.in 能顶上。
 const WEATHER_FALLBACK_BASE: string = 'https://wttr.in/';
 const CONNECT_TIMEOUT: number = 8000;
@@ -38,6 +39,31 @@ export class HttpProbe {
     } finally {
       req.destroy();
     }
+  }
+}
+
+interface AqiCurrent {
+  us_aqi: number;
+}
+
+interface AqiResponse {
+  current?: AqiCurrent;
+}
+
+export class AirQualityService {
+  static async fetch(lat: number, lon: number): Promise<number> {
+    const url: string = AQI_BASE + '?latitude=' + lat + '&longitude=' + lon
+      + '&current=us_aqi&timezone=auto';
+    try {
+      const body: string = await HttpProbe.getString(url, 6000);
+      const parsed: AqiResponse = JSON.parse(body) as AqiResponse;
+      if (parsed.current !== undefined && parsed.current !== null) {
+        return Math.round(parsed.current.us_aqi);
+      }
+    } catch (e) {
+      Log.warn('aqi failed: ' + (e as Error).message);
+    }
+    return -1;
   }
 }
 

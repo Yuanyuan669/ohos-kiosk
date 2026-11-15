@@ -3,6 +3,7 @@ import window from '@ohos.window';
 import common from '@ohos.app.ability.common';
 import deviceInfo from '@ohos.deviceInfo';
 import promptAction from '@ohos.promptAction';
+import inputMethod from '@ohos.inputMethod';
 import { Log } from '../common/Logger';
 import { SettingsStore, Settings } from '../common/SettingsStore';
 import { KioskSetup } from '../common/KioskSetup';
@@ -138,6 +139,16 @@ struct SettingsPage {
     this.persist(true);
   }
 
+  private hideKeyboard(): void {
+    try {
+      inputMethod.getController().stopInputSession().catch((e: Error) => {
+        Log.warn('stop input session failed: ' + e.message);
+      });
+    } catch (e) {
+      Log.warn('input method controller unavailable: ' + (e as Error).message);
+    }
+  }
+
   aboutToDisappear(): void {
     if (this.saveTimer >= 0) {
       clearTimeout(this.saveTimer);
@@ -167,6 +178,15 @@ struct SettingsPage {
           .margin({ left: 12 })
           .onClick(() => {
             this.save();
+          })
+        Button('完成')
+          .fontSize(14)
+          .backgroundColor($r('app.color.kiosk_accent_soft'))
+          .fontColor($r('app.color.kiosk_text_primary'))
+          .margin({ left: 8 })
+          .onClick(() => {
+            this.save();
+            this.hideKeyboard();
           })
       }
       .width('100%')
@@ -324,9 +344,21 @@ struct SettingsPage {
           .width('100%')
 
           Column({ space: 4 }) {
-            Text('待办（每行一条）')
-              .fontSize(13)
-              .fontColor($r('app.color.kiosk_text_secondary'))
+            Row() {
+              Text('待办（每行一条）')
+                .fontSize(13)
+                .fontColor($r('app.color.kiosk_text_secondary'))
+              Blank()
+              Button('+ 换行')
+                .fontSize(12)
+                .height(28)
+                .backgroundColor($r('app.color.kiosk_accent_soft'))
+                .onClick(() => {
+                  this.todosText = this.todosText + '\n';
+                  this.scheduleSave();
+                })
+            }
+            .width('100%')
             TextArea({ text: this.todosText, placeholder: '一行一条待办' })
               .fontSize(14)
               .height(96)
@@ -341,9 +373,21 @@ struct SettingsPage {
           .width('100%')
 
           Column({ space: 4 }) {
-            Text('备忘（每行一条）')
-              .fontSize(13)
-              .fontColor($r('app.color.kiosk_text_secondary'))
+            Row() {
+              Text('备忘（每行一条）')
+                .fontSize(13)
+                .fontColor($r('app.color.kiosk_text_secondary'))
+              Blank()
+              Button('+ 换行')
+                .fontSize(12)
+                .height(28)
+                .backgroundColor($r('app.color.kiosk_accent_soft'))
+                .onClick(() => {
+                  this.notesText = this.notesText + '\n';
+                  this.scheduleSave();
+                })
+            }
+            .width('100%')
             TextArea({ text: this.notesText, placeholder: '一行一条' })
               .fontSize(14)
               .height(120)

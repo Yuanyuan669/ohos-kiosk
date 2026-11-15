@@ -1,5 +1,7 @@
 export interface WeatherSnapshot {
   temperature: number;
+  humidity: number;
+  apparentTemperature: number;
   windSpeed: number;
   windDirection: number;
   code: number;
@@ -20,10 +22,27 @@ interface OpenMeteoCurrentWeather {
   is_day: number;
 }
 
+interface OpenMeteoCurrent {
+  time: string;
+  temperature_2m: number;
+  relative_humidity_2m: number;
+  apparent_temperature: number;
+  weather_code: number;
+  wind_speed_10m: number;
+  wind_direction_10m: number;
+  is_day: number;
+}
+
 interface OpenMeteoResponse {
-  current_weather: OpenMeteoCurrentWeather;
+  current_weather?: OpenMeteoCurrentWeather;
+  current?: OpenMeteoCurrent;
   error?: string;
   reason?: string;
+}
+
+export interface TodoItem {
+  text: string;
+  done: boolean;
 }
 
 export interface FeedPayload {
@@ -38,6 +57,8 @@ interface WttrDesc {
 
 interface WttrCurrent {
   temp_C: string;
+  FeelsLikeC: string;
+  humidity: string;
   windspeedKmph: string;
   winddirDegree: string;
   weatherCode: string;
@@ -156,7 +177,26 @@ export interface GlobalQuote {
 export class WeatherCodec {
   static parse(raw: string): WeatherSnapshot {
     const parsed: OpenMeteoResponse = JSON.parse(raw) as OpenMeteoResponse;
-    const cw: OpenMeteoCurrentWeather = parsed.current_weather;
+    if (parsed.current !== undefined && parsed.current !== null) {
+      const cur: OpenMeteoCurrent = parsed.current;
+      const snap: WeatherSnapshot = {
+        temperature: cur.temperature_2m,
+        humidity: cur.relative_humidity_2m,
+        apparentTemperature: cur.apparent_temperature,
+        windSpeed: cur.wind_speed_10m,
+        windDirection: cur.wind_direction_10m,
+        code: cur.weather_code,
+        text: WeatherCodec.describe(cur.weather_code),
+        fetchedAt: Date.now(),
+        ok: true,
+        error: ''
+      };
+      return snap;
+    }
+    const cw: OpenMeteoCurrentWeather | undefined = parsed.current_weather;
+    if (cw === undefined) {
+      throw new Error('open-meteo: 缺少 current');
+    }
     let codeNum: number = -1;
     if (cw.weathercode !== undefined) {
       codeNum = cw.weathercode;
@@ -165,6 +205,8 @@ export class WeatherCodec {
     }
     const snap: WeatherSnapshot = {
       temperature: cw.temperature,
+      humidity: 0,
+      apparentTemperature: cw.temperature,
       windSpeed: cw.wind_speed,
       windDirection: cw.wind_direction,
       code: codeNum,
@@ -220,6 +262,8 @@ export class WeatherCodec {
     const code: number = Number(cc.weatherCode);
     const snap: WeatherSnapshot = {
       temperature: Number(cc.temp_C),
+      humidity: Number(cc.humidity),
+      apparentTemperature: Number(cc.FeelsLikeC),
       windSpeed: Number(cc.windspeedKmph),
       windDirection: Number(cc.winddirDegree),
       code: code,

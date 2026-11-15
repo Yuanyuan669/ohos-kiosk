@@ -7,6 +7,7 @@ import { Log } from '../common/Logger';
 import { SettingsStore, Settings } from '../common/SettingsStore';
 import { KioskSetup } from '../common/KioskSetup';
 import { PhotoSource } from '../service/PhotoSource';
+import { TodoItem } from '../model/Types';
 
 @Entry
 @Component
@@ -18,6 +19,7 @@ struct SettingsPage {
   @State feedUrl: string = '';
   @State feedIntervalText: string = '';
   @State notesText: string = '';
+  @State todosText: string = '';
   @State keepScreenOn: boolean = true;
   @State landscape: boolean = true;
   @State stockEnabled: boolean = true;
@@ -25,6 +27,8 @@ struct SettingsPage {
   @State stockRefreshText: string = '';
   @State photoDir: string = '';
   @State deviceLine: string = '';
+  private existingTodos: TodoItem[] = [];
+  private saveTimer: number = -1;
 
   aboutToAppear(): void {
     const ctx: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
@@ -39,6 +43,12 @@ struct SettingsPage {
       this.feedUrl = s.feedUrl;
       this.feedIntervalText = '' + s.feedIntervalSec;
       this.notesText = s.notes.join('\n');
+      this.existingTodos = s.todos;
+      const todoLines: string[] = [];
+      for (let i = 0; i < s.todos.length; i++) {
+        todoLines.push(s.todos[i].text);
+      }
+      this.todosText = todoLines.join('\n');
       this.keepScreenOn = s.keepScreenOn;
       this.landscape = s.landscape;
       this.stockEnabled = s.stockEnabled;
@@ -55,8 +65,17 @@ struct SettingsPage {
     return parsed;
   }
 
-  private save(): void {
-    const ctx: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+  private scheduleSave(): void {
+    if (this.saveTimer >= 0) {
+      clearTimeout(this.saveTimer);
+    }
+    this.saveTimer = setTimeout(() => {
+      this.saveTimer = -1;
+      this.persist(false);
+    }, 600);
+  }
+
+  private collectSettings(): Settings {
     const s: Settings = new Settings();
     s.city = this.city;
     s.lat = this.num(this.latText, 39.9042);
@@ -78,15 +97,53 @@ struct SettingsPage {
       }
     }
     s.notes = notes;
+    const todoLines: string[] = this.todosText.split('\n');
+    const todos: TodoItem[] = [];
+    for (let i = 0; i < todoLines.length; i++) {
+      const text: string = todoLines[i].trim();
+      if (text.length === 0) {
+        continue;
+      }
+      let done: boolean = false;
+      for (let j = 0; j < this.existingTodos.length; j++) {
+        if (this.existingTodos[j].text === text) {
+          done = this.existingTodos[j].done;
+          break;
+        }
+      }
+      const item: TodoItem = { text: text, done: done };
+      todos.push(item);
+    }
+    s.todos = todos;
+    return s;
+  }
 
+  private persist(showToast: boolean): void {
+    const ctx: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+    const s: Settings = this.collectSettings();
     SettingsStore.save(ctx, s).then(() => {
+      this.existingTodos = s.todos;
       window.getLastWindow(ctx).then((win: window.Window) => {
         KioskSetup.apply(win, s);
       }).catch((e: Error) => {
         Log.warn('apply window failed: ' + e.message);
       });
-      promptAction.showToast({ message: '已保存', duration: 1200 });
+      if (showToast) {
+        promptAction.showToast({ message: '已保存', duration: 1200 });
+      }
     });
+  }
+
+  private save(): void {
+    this.persist(true);
+  }
+
+  aboutToDisappear(): void {
+    if (this.saveTimer >= 0) {
+      clearTimeout(this.saveTimer);
+      this.saveTimer = -1;
+    }
+    this.persist(false);
   }
 
   build() {
@@ -103,6 +160,14 @@ struct SettingsPage {
         Text('信息屏设置')
           .fontSize(18)
           .fontColor($r('app.color.kiosk_text_primary'))
+        Button('保存')
+          .fontSize(14)
+          .backgroundColor($r('app.color.kiosk_accent_soft'))
+          .fontColor($r('app.color.kiosk_text_primary'))
+          .margin({ left: 12 })
+          .onClick(() => {
+            this.save();
+          })
       }
       .width('100%')
       .height(48)
@@ -126,6 +191,7 @@ struct SettingsPage {
               .layoutWeight(1)
               .onChange((v: string) => {
                 this.city = v;
+                this.scheduleSave();
               })
           }
           .width('100%')
@@ -142,6 +208,7 @@ struct SettingsPage {
               .layoutWeight(1)
               .onChange((v: string) => {
                 this.latText = v;
+                this.scheduleSave();
               })
             TextInput({ text: this.lonText, placeholder: '116.4074' })
               .fontSize(14)
@@ -150,6 +217,7 @@ struct SettingsPage {
               .layoutWeight(1)
               .onChange((v: string) => {
                 this.lonText = v;
+                this.scheduleSave();
               })
           }
           .width('100%')
@@ -167,6 +235,7 @@ struct SettingsPage {
               .layoutWeight(1)
               .onChange((v: string) => {
                 this.weatherIntervalText = v;
+                this.scheduleSave();
               })
           }
           .width('100%')
@@ -183,6 +252,7 @@ struct SettingsPage {
               .layoutWeight(1)
               .onChange((v: string) => {
                 this.feedUrl = v;
+                this.scheduleSave();
               })
           }
           .width('100%')
@@ -200,6 +270,7 @@ struct SettingsPage {
               .layoutWeight(1)
               .onChange((v: string) => {
                 this.feedIntervalText = v;
+                this.scheduleSave();
               })
           }
           .width('100%')
@@ -212,6 +283,7 @@ struct SettingsPage {
             Toggle({ type: ToggleType.Switch, isOn: this.stockEnabled })
               .onChange((isOn: boolean) => {
                 this.stockEnabled = isOn;
+                this.scheduleSave();
               })
           }
           .width('100%')
@@ -228,6 +300,7 @@ struct SettingsPage {
               .layoutWeight(1)
               .onChange((v: string) => {
                 this.stockSummaryUrl = v;
+                this.scheduleSave();
               })
           }
           .width('100%')
@@ -245,8 +318,26 @@ struct SettingsPage {
               .layoutWeight(1)
               .onChange((v: string) => {
                 this.stockRefreshText = v;
+                this.scheduleSave();
               })
           }
+          .width('100%')
+
+          Column({ space: 4 }) {
+            Text('待办（每行一条）')
+              .fontSize(13)
+              .fontColor($r('app.color.kiosk_text_secondary'))
+            TextArea({ text: this.todosText, placeholder: '一行一条待办' })
+              .fontSize(14)
+              .height(96)
+              .backgroundColor($r('app.color.kiosk_card'))
+              .fontColor($r('app.color.kiosk_text_primary'))
+              .onChange((v: string) => {
+                this.todosText = v;
+                this.scheduleSave();
+              })
+          }
+          .alignItems(HorizontalAlign.Start)
           .width('100%')
 
           Column({ space: 4 }) {
@@ -260,6 +351,7 @@ struct SettingsPage {
               .fontColor($r('app.color.kiosk_text_primary'))
               .onChange((v: string) => {
                 this.notesText = v;
+                this.scheduleSave();
               })
           }
           .alignItems(HorizontalAlign.Start)
@@ -273,6 +365,7 @@ struct SettingsPage {
             Toggle({ type: ToggleType.Switch, isOn: this.keepScreenOn })
               .onChange((isOn: boolean) => {
                 this.keepScreenOn = isOn;
+                this.scheduleSave();
               })
           }
           .width('100%')
@@ -285,6 +378,7 @@ struct SettingsPage {
             Toggle({ type: ToggleType.Switch, isOn: this.landscape })
               .onChange((isOn: boolean) => {
                 this.landscape = isOn;
+                this.scheduleSave();
               })
           }
           .width('100%')

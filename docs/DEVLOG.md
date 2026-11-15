@@ -5,6 +5,40 @@
 
 ---
 
+## 2026-11-15 fix: 天气详情 / 待办列表 / 设置自动保存
+
+### 天气
+- Open-Meteo 请求从 `current_weather=true` 切到 `current=` 字段集，补回
+  `relative_humidity_2m / apparent_temperature / wind_speed_10m / wind_direction_10m`；
+  `WeatherSnapshot` 增加 `humidity / apparentTemperature`，wttr.in 备用源同步解析。
+- 天气卡恢复「体感 / 湿度 / 风」详情行；太阳等图标改用不带 VS16 的文本符号并给
+  `fontColor` 上色，避免部分镜像把 `☀️` 渲染成黑色字形。
+
+### 待办
+- `TodoItem { text, done }` 持久化到 `todosJson`；设置页新增「待办（每行一条）」，
+  保留已有条目的完成状态。
+- 首页右下角改为待办卡片，逐条显示 ☐/☑，点击切换完成并立即写 preferences；
+  空列表显示「暂无待办，去设置添加」。
+
+### 设置持久化
+- 设置页所有输入/开关变更后 600ms 防抖自动保存；离开页面时再强制保存一次。
+- 顶部新增「保存」按钮，底部保留「保存并应用」；实测切换股市开关后
+  `kiosk_prefs` 立即出现 `stockEnabled`，退出重开仍保持。
+
+### 股市离线兜底
+- 把当前 `kiosk_summary.json` 打进 `resources/rawfile/`；启动时先用内置快照
+  渲染，网络成功后覆盖。镜像全部失败时不再退回照片，而是显示内置快照 +
+  新浪实时指数/全球行情。
+
+### 验证
+- 实机截图确认天气图标恢复彩色，体感/湿度/风显示；待办卡片可见。
+- `kiosk_prefs` 实测写入 `stockEnabled / stockRefreshSec / todosJson` 等键；
+  安装后重启仍从 preferences 读取。
+- 构建/签名/安装通过；`hilog` 显示 `bundled stock loaded` 和
+  `stock summary ok via gh-proxy`。
+
+---
+
 ## 2026-11-15 feat: 股市面板 + 精简汇总 feed
 
 ### 目标

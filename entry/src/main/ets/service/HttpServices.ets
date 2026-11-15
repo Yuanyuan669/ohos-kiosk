@@ -43,8 +43,9 @@ export class HttpProbe {
 
 export class WeatherService {
   static async fetch(lat: number, lon: number): Promise<WeatherSnapshot> {
-    const url: string =
-      WEATHER_BASE + '?latitude=' + lat + '&longitude=' + lon + '&current_weather=true&timezone=auto';
+    const url: string = WEATHER_BASE + '?latitude=' + lat + '&longitude=' + lon
+      + '&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,'
+      + 'wind_speed_10m,wind_direction_10m,is_day&timezone=auto';
     try {
       const body: string = await HttpProbe.getString(url, 6000);
       const snap: WeatherSnapshot = WeatherCodec.parse(body);
@@ -64,6 +65,8 @@ export class WeatherService {
         Log.warn('weather failed: ' + all);
         const bad: WeatherSnapshot = {
           temperature: 0,
+          humidity: 0,
+          apparentTemperature: 0,
           windSpeed: 0,
           windDirection: 0,
           code: -1,

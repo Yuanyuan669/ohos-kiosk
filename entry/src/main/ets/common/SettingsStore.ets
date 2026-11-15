@@ -1,6 +1,7 @@
 import preferences from '@ohos.data.preferences';
 import common from '@ohos.app.ability.common';
 import { Log } from './Logger';
+import { TodoItem } from '../model/Types';
 
 const STORE_NAME: string = 'kiosk_prefs';
 
@@ -17,6 +18,7 @@ export const KEY_LOCATION_VERSION: string = 'locationVersion';
 export const KEY_STOCK_ENABLED: string = 'stockEnabled';
 export const KEY_STOCK_SUMMARY_URL: string = 'stockSummaryUrl';
 export const KEY_STOCK_REFRESH: string = 'stockRefreshSec';
+export const KEY_TODOS: string = 'todosJson';
 
 export class Settings {
   lat: number = 22.5431;
@@ -31,6 +33,7 @@ export class Settings {
   stockEnabled: boolean = true;
   stockSummaryUrl: string = 'https://gh-proxy.com/https://raw.githubusercontent.com/Yuanyuan669/ohos-kiosk/main/feed/kiosk_summary.json';
   stockRefreshSec: number = 300;
+  todos: TodoItem[] = [];
 }
 
 export class SettingsStore {
@@ -58,6 +61,8 @@ export class SettingsStore {
       if (parsed.length > 0) {
         s.notes = parsed;
       }
+      const todosRaw: string = await p.get(KEY_TODOS, '[]') as string;
+      s.todos = JSON.parse(todosRaw) as TodoItem[];
       const locVersion: number = await p.get(KEY_LOCATION_VERSION, 0) as number;
       if (locVersion < 1) {
         s.city = '深圳';
@@ -89,6 +94,7 @@ export class SettingsStore {
       await p.put(KEY_STOCK_ENABLED, s.stockEnabled);
       await p.put(KEY_STOCK_SUMMARY_URL, s.stockSummaryUrl);
       await p.put(KEY_STOCK_REFRESH, s.stockRefreshSec);
+      await p.put(KEY_TODOS, JSON.stringify(s.todos));
       await p.put(KEY_NOTES, JSON.stringify(s.notes));
       await p.put(KEY_LOCATION_VERSION, 1);
       await p.flush();

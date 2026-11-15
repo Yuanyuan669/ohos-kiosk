@@ -9,3 +9,5 @@ TradingMaster 的 `scripts/build_kiosk_summary.py` 生成。
 - kiosk 内置失败回退列表：GitHub raw → ghproxy.net → ghfast.top →
   statically → jsDelivr；任一成功即停止。
 - 文件只包含公开市场数据，不包含账户、持仓、token 或任何密钥。
+- 应用内还带一份 `resources/rawfile/kiosk_summary.json` 作为网络不可达时的
+  离线快照；热更新 feed 后如需同步离线兜底，覆盖该文件并重新打包安装。

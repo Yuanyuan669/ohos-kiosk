@@ -2,6 +2,7 @@ import router from '@ohos.router';
 import image from '@ohos.multimedia.image';
 import common from '@ohos.app.ability.common';
 import deviceInfo from '@ohos.deviceInfo';
+import util from '@ohos.util';
 import { Log } from '../common/Logger';
 import { pad, stamp, windName, WEEKDAYS } from '../common/Format';
 import { SettingsStore, Settings } from '../common/SettingsStore';
@@ -9,7 +10,7 @@ import { WeatherService, FeedService, StockService } from '../service/HttpServic
 import { PhotoSource } from '../service/PhotoSource';
 import {
   WeatherSnapshot, FeedSnapshot, KioskSummary, GlobalQuote,
-  KioskIndex, KioskWatch, KioskNewsItem
+  KioskIndex, KioskWatch, KioskNewsItem, TodoItem
 } from '../model/Types';
 
 const PHOTO_ROTATE_SEC: number = 15;
@@ -29,6 +30,7 @@ struct Index {
   @State feedTitle: string = '自定义信息源';
   @State feedLines: string[] = [];
   @State notes: string[] = [];
+  @State todos: TodoItem[] = [];
   @State photo: image.PixelMap | null = null;
   @State photoIndex: number = 0;
   @State photoCount: number = 0;
@@ -38,6 +40,7 @@ struct Index {
   @State stockPage: number = 0;
   @State statusText: string = '启动';
   private settings: Settings = new Settings();
+  private bundledStock: KioskSummary | null = null;
   private paths: string[] = [];
   private nextWeatherAt: number = 0;
   private nextFeedAt: number = 0;
@@ -56,7 +59,9 @@ struct Index {
       this.settings = s;
       this.cityText = s.city;
       this.notes = s.notes;
+      this.todos = s.todos;
       this.reloadPhotos(ctx);
+      this.loadBundledStock(ctx);
       this.heartbeat(Date.now());
       this.refreshStock();
     });
@@ -80,6 +85,7 @@ struct Index {
       this.settings = s;
       this.cityText = s.city;
       this.notes = s.notes;
+      this.todos = s.todos;
       this.reloadPhotos(ctx);
       this.refreshStock();
       Log.info('settings reloaded after page show');
@@ -126,7 +132,9 @@ struct Index {
       if (w.ok) {
         this.tempText = w.temperature.toFixed(1) + '°C';
         this.weatherText = w.text;
-        this.weatherDetail = '风 ' + w.windSpeed.toFixed(0) + ' km/h ' + windName(w.windDirection);
+        this.weatherDetail = '体感 ' + w.apparentTemperature.toFixed(1) + '°C · 湿度 '
+          + w.humidity.toFixed(0) + '% · 风 ' + w.windSpeed.toFixed(0) + 'km/h '
+          + windName(w.windDirection);
         this.statusText = '天气已更新 ' + stamp(Date.now());
         this.nextWeatherAt = Date.now() + this.settings.weatherIntervalSec * 1000;
       } else {
@@ -160,6 +168,23 @@ struct Index {
     return 4;
   }
 
+  loadBundledStock(ctx: common.UIAbilityContext): void {
+    ctx.resourceManager.getRawFileContent('kiosk_summary.json').then((data: Uint8Array) => {
+      const decoder: util.TextDecoder = util.TextDecoder.create('utf-8');
+      const text: string = decoder.decodeWithStream(data, { stream: false });
+      const summary: KioskSummary = JSON.parse(text) as KioskSummary;
+      this.bundledStock = summary;
+      if (this.stock === null && this.settings.stockEnabled) {
+        this.stock = summary;
+        this.nextStockPageAt = Date.now() + STOCK_PAGE_SEC * 1000;
+        this.refreshGlobals();
+      }
+      Log.info('bundled stock loaded ' + summary.generated_at);
+    }).catch((e: Error) => {
+      Log.warn('bundled stock load failed: ' + e.message);
+    });
+  }
+
   refreshStock(): void {
     if (!this.settings.stockEnabled || this.settings.stockSummaryUrl.length === 0) {
       this.stock = null;
@@ -173,9 +198,14 @@ struct Index {
     this.busyStock = true;
     StockService.fetchSummary(this.settings.stockSummaryUrl).then((s: KioskSummary | null) => {
       if (s === null) {
-        this.stock = null;
-        this.globals = [];
-        this.fallbackIndices = [];
+        if (this.bundledStock !== null) {
+          this.stock = this.bundledStock;
+          this.refreshGlobals();
+        } else {
+          this.stock = null;
+          this.globals = [];
+          this.fallbackIndices = [];
+        }
         this.nextStockAt = Date.now() + RETRY_SEC * 1000;
         this.busyStock = false;
         return;
@@ -244,6 +274,27 @@ struct Index {
     return (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
   }
 
+  toggleTodo(index: number): void {
+    if (index < 0 || index >= this.todos.length) {
+      return;
+    }
+    const updated: TodoItem[] = [];
+    for (let i = 0; i < this.todos.length; i++) {
+      const current: TodoItem = this.todos[i];
+      const item: TodoItem = {
+        text: current.text,
+        done: i === index ? !current.done : current.done
+      };
+      updated.push(item);
+    }
+    this.todos = updated;
+    this.settings.todos = updated;
+    const ctx: common.UIAbilityContext = getContext(this) as common.UIAbilityContext;
+    SettingsStore.save(ctx, this.settings).catch((e: Error) => {
+      Log.warn('save todos failed: ' + e.message);
+    });
+  }
+
   reloadPhotos(ctx: common.UIAbilityContext): void {
     PhotoSource.ensureDir(ctx);
     this.paths = PhotoSource.list(ctx);
@@ -280,39 +331,54 @@ struct Index {
   private weatherIcon(): string {
     const t: string = this.weatherText;
     if (t === '晴') {
-      return '☀️';
+      return '☀';
     }
     if (t === '少云') {
-      return '🌤️';
+      return '🌤';
     }
     if (t === '多云') {
       return '⛅';
     }
     if (t === '阴') {
-      return '☁️';
+      return '☁';
     }
     if (t === '雾' || t === '霾') {
-      return '🌫️';
+      return '🌫';
     }
     if (t === '毛毛雨' || t === '小雨' || t === '大雨' || t === '雨') {
-      return '🌧️';
+      return '🌧';
     }
     if (t === '阵雨' || t === '局部有雨雪') {
-      return '🌦️';
+      return '🌦';
     }
     if (t === '雷雨' || t === '雷阵雨') {
-      return '⛈️';
+      return '⛈';
     }
     if (t === '雪' || t === '阵雪' || t === '雨夹雪') {
-      return '🌨️';
+      return '❄';
     }
     if (t === '离线') {
       return '📡';
     }
     if (t === '连接中') {
-      return '🌐';
+      return '◌';
     }
-    return '🌡️';
+    return '？';
+  }
+
+  private weatherIconColor(): ResourceColor {
+    const t: string = this.weatherText;
+    if (t === '离线') {
+      return $r('app.color.kiosk_err');
+    }
+    if (t === '晴' || t === '少云') {
+      return $r('app.color.kiosk_warn');
+    }
+    if (t === '雨' || t === '小雨' || t === '大雨' || t === '阵雨'
+      || t === '雷雨' || t === '雷阵雨') {
+      return $r('app.color.kiosk_accent');
+    }
+    return $r('app.color.kiosk_text_secondary');
   }
 
   build() {
@@ -328,7 +394,7 @@ struct Index {
 
         Column({ space: 12 }) {
           this.MediaCard()
-          this.NoteCard()
+          this.TodoCard()
         }
         .layoutWeight(1)
         .height('100%')
@@ -405,11 +471,14 @@ struct Index {
           .fontColor($r('app.color.kiosk_accent'))
         Blank()
         Text(this.weatherIcon())
-          .fontSize(58)
+          .fontSize(54)
+          .fontColor(this.weatherIconColor())
       }
       Text(this.weatherDetail)
         .fontSize(13)
         .fontColor($r('app.color.kiosk_text_secondary'))
+        .maxLines(2)
+        .textOverflow({ overflow: TextOverflow.Ellipsis })
     }
     .alignItems(HorizontalAlign.Start)
     .width('100%')
@@ -712,6 +781,64 @@ struct Index {
     .onClick(() => {
       this.stepPhoto(Date.now(), 1);
     })
+  }
+
+  @Builder
+  TodoCard() {
+    Column({ space: 4 }) {
+      Row() {
+        Text('待办')
+          .fontSize(13)
+          .fontColor($r('app.color.kiosk_text_secondary'))
+        Blank()
+        Text('' + this.todos.length)
+          .fontSize(11)
+          .fontColor($r('app.color.kiosk_text_secondary'))
+      }
+      .width('100%')
+      if (this.todos.length === 0) {
+        Text('暂无待办，去设置添加')
+          .fontSize(14)
+          .fontColor($r('app.color.kiosk_text_secondary'))
+      } else {
+        Scroll() {
+          Column({ space: 2 }) {
+            ForEach(this.todos, (item: TodoItem, idx: number) => {
+              Row({ space: 8 }) {
+                Text(item.done ? '☑' : '☐')
+                  .fontSize(15)
+                  .fontColor(item.done ? $r('app.color.kiosk_ok') : $r('app.color.kiosk_accent'))
+                Text(item.text)
+                  .fontSize(14)
+                  .fontColor(item.done ? $r('app.color.kiosk_text_secondary') : $r('app.color.kiosk_text_primary'))
+                  .decoration({
+                    type: item.done ? TextDecorationType.LineThrough : TextDecorationType.None,
+                    color: $r('app.color.kiosk_text_secondary')
+                  })
+                  .maxLines(2)
+                  .textOverflow({ overflow: TextOverflow.Ellipsis })
+                  .layoutWeight(1)
+              }
+              .width('100%')
+              .padding({ top: 2, bottom: 2 })
+              .onClick(() => {
+                this.toggleTodo(idx);
+              })
+            }, (item: TodoItem, idx: number) => idx + '_' + item.text)
+          }
+          .alignItems(HorizontalAlign.Start)
+          .width('100%')
+        }
+        .scrollable(ScrollDirection.Vertical)
+        .height(104)
+      }
+    }
+    .alignItems(HorizontalAlign.Start)
+    .width('100%')
+    .height(156)
+    .padding(14)
+    .borderRadius(16)
+    .backgroundColor($r('app.color.kiosk_card'))
   }
 
   @Builder

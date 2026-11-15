@@ -1,0 +1,93 @@
+# GitLab CI，自建 runner（tag: ohos-board）。语义与 github-actions.self-hosted.yml 一致。
+#
+# 需要在项目/群组里配：
+#   OHOS_SIGN_ZIP   （可选）base64 的 zip，含 homekiosk.p12 / homekiosk-app.cer / homekiosk-profile.p7b
+#                   不配就跑 make-signing-material.sh，用 SDK 自带的公开测试 PKI 现生成
+#   OHOS_STORE_PWD / OHOS_KEY_PWD   缺省即社区测试 PKI 的公开口令 123456
+#   OHOS_TARGET     局域网部署填 "192.168.1.23:5555"；USB 独占设备留空
+#   OHOS_TOOLS_ROOT runner 上工具根目录，默认 /opt/ohos-tools
+#
+# runner 本身只要有 git / curl / unzip / tar / node（或 JDK 之外的任何东西都行，
+# 脚本会自己去 D 盘 / /opt 找）和一个 JDK 17。
+
+stages:
+  - prepare
+  - build
+  - deploy
+
+variables:
+  OHOS_TOOLS_ROOT: "/opt/ohos-tools"
+  OHOS_BUILD_MODE: "debug"
+  GIT_STRATEGY: fetch
+
+toolchain:
+  stage: prepare
+  tags: [ohos-board]
+  script:
+    - |
+      set -uo pipefail
+      if [ ! -d "$OHOS_TOOLS_ROOT/sdk/openharmony/toolchains" ]; then
+        OHOS_SDK_INSTALL_ROOT="$OHOS_TOOLS_ROOT/sdk" bash scripts/get-ohos-sdk.sh
+        ln -sfn "$OHOS_TOOLS_ROOT/sdk/openharmony" "$OHOS_TOOLS_ROOT/sdk/10"
+      fi
+      if [ ! -d "$OHOS_TOOLS_ROOT/hvigor-3.2.4/node_modules" ]; then
+        HVIGOR_INSTALL_DIR="$OHOS_TOOLS_ROOT/hvigor-3.2.4" bash scripts/install-hvigor.sh
+      fi
+    - |
+      # 把 runner 上的路径写进构建环境（GitLab 用 dotenv 制品往下传）
+      {
+        echo "OHOS_BASE_SDK_HOME=$OHOS_TOOLS_ROOT/sdk"
+        echo "OHOS_SDK_TOOLCHAINS=$OHOS_TOOLS_ROOT/sdk/openharmony/toolchains"
+        echo "HVIGOR_CLI=$OHOS_TOOLS_ROOT/hvigor-3.2.4/node_modules/@ohos/hvigor/bin/hvigor-simple.js"
+        echo "NODE_PATH=$OHOS_TOOLS_ROOT/hvigor-3.2.4/node_modules"
+      } > build.env
+  artifacts:
+    reports:
+      dotenv: build.env
+
+signing:
+  stage: prepare
+  tags: [ohos-board]
+  needs: [toolchain]
+  script:
+    - |
+      set -uo pipefail
+      if [ -n "${OHOS_SIGN_ZIP:-}" ]; then
+        mkdir -p signing
+        printf '%s' "$OHOS_SIGN_ZIP" | base64 -d > signing/materials.zip
+        (cd signing && unzip -o materials.zip && rm materials.zip)
+      else
+        bash scripts/make-signing-material.sh
+      fi
+      ls -l signing
+  cache:
+    key: homekiosk-signing
+    paths:
+      - signing/
+
+package:
+  stage: build
+  tags: [ohos-board]
+  needs: [toolchain, signing]
+  script:
+    - bash scripts/doctor.sh || echo "WARN: doctor 有待补项"
+    - bash scripts/build.sh
+    - bash scripts/sign.sh
+  artifacts:
+    name: homekiosk-hap
+    paths:
+      - build-artifacts/*.hap
+
+deploy:
+  stage: deploy
+  tags: [ohos-board]
+  needs: [package]
+  # 一块板子只能串行装，别和上一条流水线抢
+  resource_group: homekiosk-board
+  script:
+    - bash scripts/deploy.sh
+  artifacts:
+    when: always
+    name: device-proof
+    paths:
+      - build-artifacts/device.jpeg

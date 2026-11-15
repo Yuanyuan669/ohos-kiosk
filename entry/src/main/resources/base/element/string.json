@@ -1,0 +1,16 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "Home info display module"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Home info display"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "HomeKiosk"
+    }
+  ]
+}

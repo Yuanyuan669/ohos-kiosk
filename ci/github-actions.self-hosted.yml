@@ -1,0 +1,111 @@
+# 跑在一台够得着板子的自建 runner 上（USB 直连或同网段）。
+# runner 只需要 git + curl + unzip + 一个 JDK；剩下的（SDK、hvigor、签名材料）
+# 由下面两个 step 现装现生成，所以换机器不用手工配环境。
+#
+#   secrets.OHOS_SIGN_ZIP     可选：base64 的 zip，含 homekiosk.p12 / homekiosk-app.cer /
+#                             homekiosk-profile.p7b。不给的话流水线自己跑
+#                             make-signing-material.sh，用 SDK 自带的公开测试 PKI 生成。
+#   secrets.OHOS_STORE_PWD    默认 123456（社区测试 PKI 的公开口令）
+#   secrets.OHOS_KEY_PWD      同上
+#   vars.OHOS_TARGET          局域网部署时填 "192.168.1.23:5555"；USB 独占设备留空
+#   vars.OHOS_TOOLS_ROOT      runner 上的工具根目录，默认 /opt/ohos-tools
+#   vars.DEVECO_NODE          可选：node 可执行文件绝对路径；留空则用 runner 自带 node
+#
+# 关键前提：runner 到不了设备时，把最后一步的 runs_on 拆成两个 job，
+# 或者只保留 build + sign 两个 step 并把产物当 artifact 上传，装机那步必然红。
+
+name: homekiosk-build-deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'entry/**'
+      - 'AppScope/**'
+      - 'build-profile.json5'
+      - 'hvigor/**'
+      - 'scripts/**'
+      - 'ci/github-actions.self-hosted.yml'
+  workflow_dispatch:
+    inputs:
+      build_mode:
+        description: debug or release
+        default: debug
+        type: choice
+        options: [debug, release]
+
+concurrency:
+  group: homekiosk-board-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, ohos-board]
+    env:
+      OHOS_TOOLS_ROOT: ${{ vars.OHOS_TOOLS_ROOT || '/opt/ohos-tools' }}
+      OHOS_TARGET: ${{ vars.OHOS_TARGET }}
+      OHOS_NODE: ${{ vars.DEVECO_NODE }}
+      OHOS_BUILD_MODE: ${{ github.event.inputs.build_mode || 'debug' }}
+      OHOS_STORE_PWD: ${{ secrets.OHOS_STORE_PWD || '123456' }}
+      OHOS_KEY_PWD: ${{ secrets.OHOS_KEY_PWD || '123456' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 准备工具链（只在缺的时候装，约 2 GB 下载）
+        run: |
+          set -uo pipefail
+          if [ ! -d "$OHOS_TOOLS_ROOT/sdk/openharmony/toolchains" ]; then
+            OHOS_SDK_INSTALL_ROOT="$OHOS_TOOLS_ROOT/sdk" bash scripts/get-ohos-sdk.sh
+            # hvigor 按 $OHOS_BASE_SDK_HOME/<API号>/<组件> 找 SDK，补一个版本号目录
+            ln -sfn "$OHOS_TOOLS_ROOT/sdk/openharmony" "$OHOS_TOOLS_ROOT/sdk/10"
+          else
+            echo "SDK 已就位"
+          fi
+          if [ ! -d "$OHOS_TOOLS_ROOT/hvigor-3.2.4/node_modules" ]; then
+            HVIGOR_INSTALL_DIR="$OHOS_TOOLS_ROOT/hvigor-3.2.4" bash scripts/install-hvigor.sh
+          else
+            echo "hvigor 已就位"
+          fi
+          # 本机 env.sh 里的默认路径是 D 盘，CI 上显式覆盖
+          {
+            echo "OHOS_BASE_SDK_HOME=$OHOS_TOOLS_ROOT/sdk"
+            echo "OHOS_SDK_TOOLCHAINS=$OHOS_TOOLS_ROOT/sdk/openharmony/toolchains"
+            echo "HVIGOR_CLI=$OHOS_TOOLS_ROOT/hvigor-3.2.4/node_modules/@ohos/hvigor/bin/hvigor-simple.js"
+            echo "NODE_PATH=$OHOS_TOOLS_ROOT/hvigor-3.2.4/node_modules"
+          } >> "$GITHUB_ENV"
+
+      - name: 签名材料（secrets 优先，没有就现生成）
+        env:
+          BLOB: ${{ secrets.OHOS_SIGN_ZIP }}
+        run: |
+          set -uo pipefail
+          if [ -n "${BLOB:-}" ]; then
+            mkdir -p signing
+            printf '%s' "$BLOB" | base64 -d > signing/materials.zip
+            (cd signing && unzip -o materials.zip && rm materials.zip)
+            ls -l signing
+          else
+            bash scripts/make-signing-material.sh
+          fi
+
+      - name: Preflight
+        run: bash scripts/doctor.sh || echo "::warning::doctor 有待补项，见上"
+
+      - name: Build
+        run: bash scripts/build.sh
+
+      - name: Sign
+        run: bash scripts/sign.sh
+
+      - name: Deploy and verify on device
+        run: bash scripts/deploy.sh
+
+      - name: Keep the proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: device-proof
+          path: |
+            build-artifacts/*.hap
+            build-artifacts/device.jpeg
+          if-no-files-found: warn

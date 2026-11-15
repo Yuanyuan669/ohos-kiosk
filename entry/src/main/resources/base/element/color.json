@@ -1,0 +1,32 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#0B1020"
+    },
+    {
+      "name": "kiosk_bg",
+      "value": "#0B1020"
+    },
+    {
+      "name": "kiosk_card",
+      "value": "#16203A"
+    },
+    {
+      "name": "kiosk_text_primary",
+      "value": "#F2F5FA"
+    },
+    {
+      "name": "kiosk_text_secondary",
+      "value": "#8FA3C0"
+    },
+    {
+      "name": "kiosk_accent",
+      "value": "#48C4D8"
+    },
+    {
+      "name": "kiosk_warn",
+      "value": "#E8A33D"
+    }
+  ]
+}

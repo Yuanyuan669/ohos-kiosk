@@ -6,6 +6,7 @@ import util from '@ohos.util';
 import { Log } from '../common/Logger';
 import { pad, stamp, windName, WEEKDAYS } from '../common/Format';
 import { SettingsStore, Settings } from '../common/SettingsStore';
+import { StaleCache } from '../common/StaleCache';
 import { WeatherService, FeedService, StockService, AirQualityService } from '../service/HttpServices';
 import { PhotoSource } from '../service/PhotoSource';
 import {
@@ -28,6 +29,7 @@ struct Index {
   @State weatherText: string = '连接中';
   @State weatherDetail: string = '';
   @State aqiValue: number = -1;
+  @State aqiStale: boolean = false;
   @State feedTitle: string = '自定义信息源';
   @State feedLines: string[] = [];
   @State notes: string[] = [];
@@ -129,6 +131,7 @@ struct Index {
       return;
     }
     this.busyWeather = true;
+    const wctx = getContext(this) as common.UIAbilityContext;
     WeatherService.fetch(this.settings.lat, this.settings.lon).then((w: WeatherSnapshot) => {
       if (w.ok) {
         this.tempText = w.temperature.toFixed(1) + '°C';
@@ -138,15 +141,43 @@ struct Index {
           + windName(w.windDirection);
         this.statusText = '天气已更新 ' + stamp(Date.now());
         this.nextWeatherAt = Date.now() + this.settings.weatherIntervalSec * 1000;
+        StaleCache.putWeather(wctx, w);
         AirQualityService.fetch(this.settings.lat, this.settings.lon).then((aqi: number) => {
-          this.aqiValue = aqi;
+          if (aqi >= 0) {
+            this.aqiValue = aqi;
+            this.aqiStale = false;
+            StaleCache.putAqi(wctx, aqi);
+          } else {
+            StaleCache.getAqi(wctx).then((cachedAqi) => {
+              this.aqiValue = cachedAqi !== null ? cachedAqi.aqi : -1;
+              this.aqiStale = cachedAqi !== null;
+            });
+          }
         });
       } else {
-        this.weatherText = '离线';
-        this.weatherDetail = w.error;
-        this.aqiValue = -1;
-        this.statusText = '天气不可达，' + RETRY_SEC + 's 后重试';
-        this.nextWeatherAt = Date.now() + RETRY_SEC * 1000;
+        StaleCache.getWeather(wctx).then((stale: WeatherSnapshot | null) => {
+          if (stale !== null) {
+            this.tempText = stale.temperature.toFixed(1) + '°C';
+            this.weatherText = stale.text;
+            this.weatherDetail = '体感 ' + stale.apparentTemperature.toFixed(1) + '°C · 湿度 '
+              + stale.humidity.toFixed(0) + '% · 风 ' + stale.windSpeed.toFixed(0) + 'km/h '
+              + windName(stale.windDirection);
+            this.statusText = '天气数据 ' + stamp(stale.fetchedAt) + '（离线缓存）';
+            StaleCache.getAqi(wctx).then((cachedAqi) => {
+              this.aqiValue = cachedAqi !== null ? cachedAqi.aqi : -1;
+              if (cachedAqi !== null) {
+                this.aqiStale = true;
+              }
+            });
+          } else {
+            this.weatherText = '离线';
+            this.weatherDetail = w.error;
+            this.aqiValue = -1;
+            this.aqiStale = false;
+            this.statusText = '天气不可达，' + RETRY_SEC + 's 后重试';
+          }
+          this.nextWeatherAt = Date.now() + RETRY_SEC * 1000;
+        });
       }
       this.busyWeather = false;
     });
@@ -157,13 +188,21 @@ struct Index {
       return;
     }
     this.busyFeed = true;
+    const fctx = getContext(this) as common.UIAbilityContext;
     FeedService.fetch(this.settings.feedUrl).then((f: FeedSnapshot) => {
       this.feedTitle = f.title;
       this.feedLines = f.lines;
       if (f.ok) {
         this.nextFeedAt = Date.now() + this.settings.feedIntervalSec * 1000;
+        StaleCache.putFeed(fctx, this.settings.feedUrl, f);
       } else {
-        this.nextFeedAt = Date.now() + RETRY_SEC * 1000;
+        StaleCache.getFeed(fctx, this.settings.feedUrl).then((stale: FeedSnapshot | null) => {
+          if (stale !== null) {
+            this.feedTitle = stale.title + '（离线缓存 ' + stamp(stale.fetchedAt) + '）';
+            this.feedLines = stale.lines;
+          }
+          this.nextFeedAt = Date.now() + RETRY_SEC * 1000;
+        });
       }
       this.busyFeed = false;
     });
@@ -375,7 +414,7 @@ struct Index {
     if (this.aqiValue < 0) {
       return 'AQI --';
     }
-    return 'AQI ' + this.aqiValue;
+    return 'AQI ' + this.aqiValue + (this.aqiStale ? '*' : '');
   }
 
   private aqiColor(): ResourceColor {

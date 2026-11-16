@@ -26,3 +26,4 @@ assets/photos/*
 .idea/
 *.iml
 local.properties
+watchdog-logs/

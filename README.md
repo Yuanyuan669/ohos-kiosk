@@ -135,6 +135,7 @@ HomeKiosk — 把开发者手机变成家庭信息屏，并把构建到装机做
   docs/PITFALLS.md          上板实录：构建/签名/装机/推照片/网络各阶段踩过的坑与修法
   docs/DEVLOG.md            开发日志：2026-11-15 起的改动、验证与已知限制
   docs/DEVICE.md            设备档案：实测版本/硬件/调试状态/常用命令/刷机与备份原则
+  docs/OPTIMIZATION.md      整体优化方向：长稳/网络/功耗/内存/CI 的优先级、指标与反目标
   assets/photos/            照片投递暂存目录
   tools/feed-mock.js        本地假信息源，验证链路用
   tools/validate-project.js 工程静态自检（JSON/资源/路由/引用一致性）

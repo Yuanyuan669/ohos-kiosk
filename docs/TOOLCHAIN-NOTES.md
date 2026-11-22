@@ -4,28 +4,28 @@
 网上多数教程指向的包已经下架，照抄会卡在半路；本篇把"哪些路已经实测走不通"和"最终走通的那条"分开写。
 
 最终走通的组合（本机就是这套，build -> sign -> verify-app 全绿）
-  IDE        DevEco Studio 26.0.1.290  D:\DevEcoStudio
+  IDE        DevEco Studio 26.0.1.290  $DEVECO_HOME
              仍然带 sdk\default\openharmony\{ets,js,native,previewer,toolchains}，
              也就是开源鸿蒙支持并没有被砍掉；只是它自带的这份是 apiVersion 26（HarmonyOS 26.0.1 Beta1），
              不含 API 10 编译目标。
   编译 SDK   OpenHarmony 4.0-Release SDK（apiVersion 10，组件版本 4.0.10.13）
-             D:\ohos-tools\sdk\openharmony-4.0-Release\{ets,js,toolchains}
+             $OHOS_TOOLS/sdk/openharmony-4.0-Release\{ets,js,toolchains}
              下载源：https://repo.huaweicloud.com/openharmony/os/4.0-Release/ohos-sdk-windows_linux-public.tar.gz
                      2141445383 字节，SHA256 80a92d54f81b163c903d6bfb95d3cad8a1854efa6dbe02802a9ca87aebc3ad50（已校验）
              native / previewer 两个组件没解：应用是纯 ArkTS，没有 C++ 也不需要 IDE 预览器。
-  hvigor     3.2.4 + @ohos/hvigor-ohos-plugin 3.2.4，装在 D:\ohos-tools\hvigor-3.2.4
+  hvigor     3.2.4 + @ohos/hvigor-ohos-plugin 3.2.4，装在 $OHOS_TOOLS/hvigor-3.2.4
              唯一可用公共源 https://repo.harmonyos.com/npm/ （registry.npmjs.org 与
              https://ohpm.openharmony.cn/ohpm/ 对 @ohos/hvigor 一律 404）。
              3.2.4 正是 DevEco 4.0 那代的产品，认 build-profile.json5 里裸数字 compileSdkVersion: 10；
              IDE 26 自带的 hvigor 6.26.x 认 "4.0.0(10)" 字符串形式。两种写法不能混，所以工程保持裸数字。
              node v24.14.1（DevEco 自带）跑 hvigor 3.2.4 实测无兼容问题。
-  JDK        17.0.21（D:\ohos-tools\java\jdk-17）。签名工具与 hvigor 的 PackageHap 都要 java，
+  JDK        17.0.21（$OHOS_TOOLS/java/jdk-17）。签名工具与 hvigor 的 PackageHap 都要 java，
              且 hvigor 是裸 spawn "java"，所以 JDK 的 bin 必须在 PATH 上（env.sh 按 JAVA_HOME 自动补）。
-  设备连接   D:\ohos-tools\sdk\openharmony\toolchains\hdc.exe  Ver 1.3.0a  <- 与 4.0 镜像同代
-             D:\DevEcoStudio\sdk\default\openharmony\toolchains\hdc.exe  Ver 3.2.0f  <- 与 IDE 同代
+  设备连接   $OHOS_TOOLS/sdk/openharmony/toolchains/hdc.exe  Ver 1.3.0a  <- 与 4.0 镜像同代
+             $DEVECO_HOME/sdk/default/openharmony/toolchains/hdc.exe  Ver 3.2.0f  <- 与 IDE 同代
              两份都在机器上，doctor.sh 会同时报版本；哪份能列出设备就用哪份（export HDC=...）。
   目录约定   hvigor 找 SDK 的方式是 $OHOS_BASE_SDK_HOME/<API 号>/<组件>，所以要有一个名为 10 的目录；
-             本机用 D:\ohos-tools\sdk\10 指向同一份 SDK 的 junction 满足它，不占额外空间。
+             本机用 $OHOS_TOOLS/sdk/10 指向同一份 SDK 的 junction 满足它，不占额外空间。
 
 关于"新版 DevEco 不认老开发板"这条担心，分开说
   1) IDE 产品支持层面：不成立。26.0.1.290 的安装目录里明确有 openharmony SDK 分支、有 hap-sign-tool.jar、
@@ -75,9 +75,9 @@
      这是刷机，有变砖风险，当前信息屏工程并不依赖它。
 
 本机安装过程里唯一没收尾的一项（如实记录）
-  起初用 winget 装了 Microsoft.OpenJDK.17 到 C:\Program Files\Microsoft\jdk-17.0.21.21-hotspot。
-  后来按要求改成 D 盘解压版，用户级 JAVA_HOME / PATH 也已指过去，构建与签名实测用的都是 D 盘那个
-  （doctor.sh 会打印 java 的实际路径）。但卸载 C 盘那一次返回：
+  起初用 winget 装了 Microsoft.OpenJDK.17 到系统盘默认位置（`Program Files` 下）。
+  后来改成工具链目录里的解压版（见 `$OHOS_TOOLS/java/jdk-17`），用户级 JAVA_HOME / PATH 也已指过去，
+  构建与签名实测用的都是后者（doctor.sh 会打印 java 的实际路径）。但卸载系统盘那一份时返回：
       卸载失败，退出代码为: 1603
   按"失败即停手"的约定我没有换方案重试。影响只是留了一份没人引用的冗余 JDK。
   要清掉的话手动跑一次并同意 UAC：

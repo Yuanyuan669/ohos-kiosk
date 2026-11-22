@@ -16,15 +16,15 @@ HomeKiosk — 把开发者手机变成家庭信息屏，并把构建到装机做
   "自定义信息源"是留给后续盯盘的口子：任何返回 {"title":"","lines":[]} 的 JSON 接口
   都能直接显示，不改代码。本地想验证就用 tools/feed-mock.js。
 
-本机链路现状（2026-11-14 已验证，全部装在 D 盘，C 盘没落东西）
-  DevEco Studio 26.0.1.290   D:\DevEcoStudio（自带的 node v24.14.1 / ohpm / hvigor 也在里面）
-  OpenHarmony SDK 4.0 API 10 D:\ohos-tools\sdk\openharmony（4.0.10.13；ets + js + toolchains）
-                             D:\ohos-tools\sdk\10 是指向同一份的版本号目录，hvigor 按号找组件
-  JDK 17                     D:\ohos-tools\java\jdk-17（用户级 JAVA_HOME / PATH 已指向它）
-  hvigor 3.2.4 + 插件 3.2.4  D:\ohos-tools\hvigor-3.2.4（npm 源只能用 https://repo.harmonyos.com/npm/，
+工具链位置（2026-11-14 实测机记录；换机只改变量，变量约定见 `ohos-device/docs/ENVIRONMENT.md` §零）
+  DevEco Studio 26.0.1.290   $DEVECO_HOME（自带的 node v24.14.1 / ohpm / hvigor 也在里面）
+  OpenHarmony SDK 4.0 API 10 $OHOS_TOOLS/sdk/openharmony（4.0.10.13；ets + js + toolchains）
+                             $OHOS_TOOLS/sdk/10 是指向同一份的版本号目录，hvigor 按号找组件
+  JDK 17                     $OHOS_TOOLS/java/jdk-17（用户级 JAVA_HOME / PATH 已指向它）
+  hvigor 3.2.4 + 插件 3.2.4  $OHOS_TOOLS/hvigor-3.2.4（npm 源只能用 https://repo.harmonyos.com/npm/，
                              registry.npmjs.org 和 ohpm.openharmony.cn 都返回 404）
-  hdc                        D:\ohos-tools\sdk\openharmony\toolchains\hdc.exe  Ver 1.3.0a
-                             D:\DevEcoStudio\...\toolchains\hdc.exe  Ver 3.2.0f（备用，两个都能试）
+  hdc                        $OHOS_TOOLS/sdk/openharmony/toolchains/hdc.exe  Ver 1.3.0a
+                             $DEVECO_HOME/.../toolchains/hdc.exe  Ver 3.2.0f（备用，两个都能试）
   已跑通：doctor 19/20，build -> sign -> verify-app 全绿，产物
   build-artifacts\entry-signed.hap（1.1MB）。唯一没过的就是板子还没插。
 
@@ -46,7 +46,7 @@ HomeKiosk — 把开发者手机变成家庭信息屏，并把构建到装机做
       /d/ohos-tools/sdk/openharmony/toolchains/hdc.exe list targets
   空列表：先换数据线（很多线只能充电），再看设备管理器有没有带感叹号的设备——
   驱动在 SDK 的 toolchains/usb_driver 目录，右键手动指定安装。
-  再不行就换一份 hdc：export HDC='D:\DevEcoStudio\sdk\default\openharmony\toolchains\hdc.exe'
+  再不行就换一份 hdc：export HDC='$DEVECO_HOME/sdk/default/openharmony/toolchains/hdc.exe'
   判据：输出一行设备序列号。
 
 第 2 步 生成签名材料（一次性，约 5 秒）
@@ -61,7 +61,7 @@ HomeKiosk — 把开发者手机变成家庭信息屏，并把构建到装机做
   如果报 9568322 / 9568313：这台镜像不认社区测试根。两条退路——
     A. DevEco Studio 打开本工程 -> Project Structure -> Signing Configs -> Automatically
        generate signature -> 选中板子 -> Run。跑通后把 IDE 生成的 .p12/.cer/.p7b
-       （在 C:\Users\你\.ohos\config）复制到 signing/，后面继续用命令行签。
+       （在 %USERPROFILE%\.ohos\config）复制到 signing/，后面继续用命令行签。
     B. 找厂商要开发板调试签名包。
   如果报 [Fail]Connect / api version：分别按第 1 步换 hdc、或核对设备 API 后改 build-profile.json5。
 

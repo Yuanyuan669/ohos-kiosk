@@ -83,7 +83,7 @@ P1 渲染与内存
       把秒级刷新限制在局部，减少整页 diff（先用帧率/CPU 数据验证是否值得）。
 
 P1 构建与 CI
-  19. 冷 CI 每次要下 2 GB SDK 和 hvigor：给 self-hosted runner 加目录缓存（或持久化 D:\ohos-tools），
+  19. 冷 CI 每次要下 2 GB SDK 和 hvigor：给 self-hosted runner 加目录缓存（或持久化 $OHOS_TOOLS），
       key 用 SDK/hvigor 版本 + 校验和。目标：冷 CI < 15 分钟，热 CI < 3 分钟。
   20. 版本固定与校验：SDK 4.0.10.13、hvigor 3.2.4、JDK 17；CI 下载后校验 SHA256，
       不追最新。升级当作独立变更，先在本机跑通再改 CI。
@@ -94,7 +94,7 @@ P1 构建与 CI
       继续沿用）。
 
 P2 工具链与系统（收益不确定，按需）
-  24. API 10 → 11（2026-11-16 已评估）：SDK 4.1-Release 已就绪（D:\ohos-tools\sdk，输入法工程在用），
+  24. API 10 → 11（2026-11-16 已评估）：SDK 4.1-Release 已就绪（$OHOS_TOOLS/sdk，输入法工程在用），
       hvigor 3.2.4 兼容 API 11 编译实测通过。但 kiosk 直接升 target 会触发 9568282
       "releaseType target not same"，无法覆盖安装（卸载重装丢照片/配置）。
       结论：保持 API 10；升级前置条件是先写"数据迁移脚本"（pull/push 照片与 preferences，

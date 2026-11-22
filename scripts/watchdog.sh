@@ -13,7 +13,7 @@
 #
 # Scheduled-task example (Windows, every 10 min):
 #   schtasks /Create /TN "HomeKiosk-Watchdog" /SC MINUTE /MO 10 ^
-#     /TR "\"C:\Program Files\Git\bin\bash.exe\" --login -i -c \"cd /d/ohos-kiosk && export OHOS_TARGET=192.168.x.x:5555 && bash scripts/watchdog.sh --once\""
+#     /TR "\"C:\Program Files\Git\bin\bash.exe\" --login -i -c \"cd /d/ohos/ohos-kiosk && export OHOS_TARGET=192.168.x.x:5555 && bash scripts/watchdog.sh --once\""
 #
 # Exit codes: 0 ok; 1 device unreachable; 2 kiosk was down (restart issued); 3 app start failed.
 . "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/common.sh"

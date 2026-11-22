@@ -41,7 +41,7 @@ signing/ — 这块板子的签名材料从哪来
 如果这块板子的镜像改过根（第一次装机失败时）
   1) DevEco Studio 打开工程 -> File -> Project Structure -> Signing Configs ->
      Automatically generate signature -> 选中板子 -> Run。跑通后 IDE 会把生成的
-     .p12/.cer/.p7b 放在 C:\Users\<你>\.ohos\config，复制到本目录并按 sign.sh 的命名约定改名
+     .p12/.cer/.p7b 放在 %USERPROFILE%\.ohos\config，复制到本目录并按 sign.sh 的命名约定改名
      （homekiosk.p12 / homekiosk-app.cer / homekiosk-profile.p7b），命令行路径立刻恢复可用。
      注意 sign.sh 用 -keyAlias 选择别名，IDE 那套一般别名是 digitalKey 之类，需要
      export OHOS_KEY_ALIAS=<IDE 里的别名>。

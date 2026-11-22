@@ -4,11 +4,11 @@
 在 docs/TOOLCHAIN-NOTES.md 里，签名材料的一致性规则在 signing/README.md 里，这里不重复。
 
 跑通时的环境（复现时先对一遍）
-  工程目录   D:\ohos-kiosk（GitHub: Yuanyuan669/ohos-kiosk，2026-11-15 从临时目录迁入）
-  IDE        D:\DevEcoStudio（26.0.1.290，只当编辑器和设备管理器用，不参与编译）
-  编译目标   D:\ohos-tools\sdk\openharmony → 4.0-Release / API 10（ets + js + toolchains）
-  hvigor     D:\ohos-tools\hvigor-3.2.4（不能用 IDE 自带的 6.26.x）
-  JDK        D:\ohos-tools\java\jdk-17
+  工程目录   ohos-kiosk（GitHub: Yuanyuan669/ohos-kiosk，2026-11-15 从临时目录迁入）
+  IDE        $DEVECO_HOME（26.0.1.290，只当编辑器和设备管理器用，不参与编译）
+  编译目标   $OHOS_TOOLS/sdk/openharmony → 4.0-Release / API 10（ets + js + toolchains）
+  hvigor     $OHOS_TOOLS/hvigor-3.2.4（不能用 IDE 自带的 6.26.x）
+  JDK        $OHOS_TOOLS/java/jdk-17
   设备       硬开鸿 LHT16，实测 OpenHarmony-4.1.7.5 / API 11 / 厂商 "OHarm OS 2.0"
              设置里显示的 2.0.613 是厂商产品版本号，不是 OpenHarmony 版本
 

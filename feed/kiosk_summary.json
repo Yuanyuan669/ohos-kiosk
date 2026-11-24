@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-24T11:05:17+08:00",
+  "generated_at": "2026-11-24T11:26:09+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-24T11:04:21.367343+08:00",
+    "generated_at": "2026-11-24T11:25:11.522016+08:00",
     "date": "2026-11-24",
-    "turnover_yi": 10268.6,
-    "sentiment_score": 50,
-    "sentiment_label": "中性",
-    "up_count": 174,
-    "down_count": 152,
-    "advance_decline_ratio": 1.14,
+    "turnover_yi": 11104.4,
+    "sentiment_score": 45,
+    "sentiment_label": "偏冷",
+    "up_count": 152,
+    "down_count": 174,
+    "advance_decline_ratio": 0.87,
     "indices": [],
     "top_sectors": []
   },
@@ -17,8 +17,8 @@
     {
       "symbol": "688183",
       "name": "生益电子",
-      "price": 75.48,
-      "pct": 6.19,
+      "price": 74.56,
+      "pct": 4.9,
       "turnover_rate": 1.35,
       "sw_l1": "电子",
       "sw_l2": "元件"
@@ -26,8 +26,8 @@
     {
       "symbol": "600156",
       "name": "华升股份",
-      "price": 9.27,
-      "pct": 5.1,
+      "price": 9.2,
+      "pct": 4.31,
       "turnover_rate": 2.39,
       "sw_l1": "纺织服饰",
       "sw_l2": "纺织制造"
@@ -35,26 +35,26 @@
     {
       "symbol": "002384",
       "name": "东山精密",
-      "price": 75.02,
-      "pct": 4.97,
+      "price": 74.39,
+      "pct": 4.09,
       "turnover_rate": 3.29,
       "sw_l1": "电子",
       "sw_l2": "元件"
     },
     {
-      "symbol": "002647",
-      "name": "仁东控股",
-      "price": 6.38,
-      "pct": 4.42,
-      "turnover_rate": 5.95,
-      "sw_l1": "非银金融",
-      "sw_l2": "多元金融"
+      "symbol": "600988",
+      "name": "赤峰黄金",
+      "price": 33.92,
+      "pct": -3.91,
+      "turnover_rate": 3.29,
+      "sw_l1": "有色金属",
+      "sw_l2": "贵金属"
     },
     {
       "symbol": "300308",
       "name": "中际旭创",
-      "price": 435.51,
-      "pct": 4.39,
+      "price": 431.88,
+      "pct": 3.52,
       "turnover_rate": 2.2,
       "sw_l1": "通信",
       "sw_l2": "通信设备"
@@ -62,52 +62,52 @@
     {
       "symbol": "603530",
       "name": "神马电力",
-      "price": 32.36,
-      "pct": 4.29,
+      "price": 32.06,
+      "pct": 3.32,
       "turnover_rate": 0.92,
       "sw_l1": "电力设备",
       "sw_l2": "电网设备"
     },
     {
-      "symbol": "600988",
-      "name": "赤峰黄金",
-      "price": 34.09,
-      "pct": -3.43,
-      "turnover_rate": 3.29,
-      "sw_l1": "有色金属",
-      "sw_l2": "贵金属"
-    },
-    {
-      "symbol": "300285",
-      "name": "国瓷材料",
-      "price": 35.83,
-      "pct": 2.87,
-      "turnover_rate": 6.41,
-      "sw_l1": "电子",
-      "sw_l2": "电子化学品Ⅱ"
+      "symbol": "002647",
+      "name": "仁东控股",
+      "price": 6.31,
+      "pct": 3.27,
+      "turnover_rate": 5.95,
+      "sw_l1": "非银金融",
+      "sw_l2": "多元金融"
     },
     {
       "symbol": "601899",
       "name": "紫金矿业",
-      "price": 23.67,
-      "pct": -2.43,
+      "price": 23.57,
+      "pct": -2.84,
       "turnover_rate": 0.9,
       "sw_l1": "有色金属",
       "sw_l2": "工业金属"
     },
     {
-      "symbol": "300059",
-      "name": "东方财富",
-      "price": 18.24,
-      "pct": -2.04,
-      "turnover_rate": 1.38,
-      "sw_l1": "非银金融",
-      "sw_l2": "证券Ⅱ"
+      "symbol": "300285",
+      "name": "国瓷材料",
+      "price": 35.74,
+      "pct": 2.61,
+      "turnover_rate": 6.41,
+      "sw_l1": "电子",
+      "sw_l2": "电子化学品Ⅱ"
+    },
+    {
+      "symbol": "600161",
+      "name": "天坛生物",
+      "price": 11.14,
+      "pct": -2.37,
+      "turnover_rate": 0.76,
+      "sw_l1": "医药生物",
+      "sw_l2": "生物制品"
     }
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-24 11:04:37",
+    "generated_at": "2026-11-24 11:25:27",
     "range": "2026-11-18 ~ 2026-11-24",
     "kpi": {
       "total": 19057,
@@ -274,9 +274,9 @@
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-24T11:04:21.367343+08:00",
+    "sentiment_at": "2026-11-24T11:25:11.522016+08:00",
     "brief_at": "",
-    "watchlist_at": "2026-11-24T11:01:52.057195+08:00",
-    "news_at": "2026-11-24 11:04:37"
+    "watchlist_at": "2026-11-24T11:22:39.114905+08:00",
+    "news_at": "2026-11-24 11:25:27"
   }
 }

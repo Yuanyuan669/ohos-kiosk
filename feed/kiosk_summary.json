@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-24T13:06:30+08:00",
+  "generated_at": "2026-11-24T13:25:00+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-24T13:05:33.091520+08:00",
+    "generated_at": "2026-11-24T13:24:03.453681+08:00",
     "date": "2026-11-24",
-    "turnover_yi": 11641.5,
+    "turnover_yi": 12365.6,
     "sentiment_score": 50,
     "sentiment_label": "中性",
-    "up_count": 159,
-    "down_count": 170,
-    "advance_decline_ratio": 0.94,
+    "up_count": 163,
+    "down_count": 164,
+    "advance_decline_ratio": 0.99,
     "indices": [],
     "top_sectors": []
   },
@@ -17,8 +17,8 @@
     {
       "symbol": "600156",
       "name": "华升股份",
-      "price": 9.36,
-      "pct": 6.12,
+      "price": 9.39,
+      "pct": 6.46,
       "turnover_rate": 2.39,
       "sw_l1": "纺织服饰",
       "sw_l2": "纺织制造"
@@ -26,26 +26,44 @@
     {
       "symbol": "688183",
       "name": "生益电子",
-      "price": 74.8,
-      "pct": 5.23,
+      "price": 74.5,
+      "pct": 4.81,
       "turnover_rate": 1.35,
       "sw_l1": "电子",
       "sw_l2": "元件"
     },
     {
-      "symbol": "300308",
-      "name": "中际旭创",
-      "price": 434.79,
-      "pct": 4.22,
-      "turnover_rate": 2.2,
-      "sw_l1": "通信",
-      "sw_l2": "通信设备"
+      "symbol": "600988",
+      "name": "赤峰黄金",
+      "price": 33.9,
+      "pct": -3.97,
+      "turnover_rate": 3.29,
+      "sw_l1": "有色金属",
+      "sw_l2": "贵金属"
+    },
+    {
+      "symbol": "002647",
+      "name": "仁东控股",
+      "price": 6.35,
+      "pct": 3.93,
+      "turnover_rate": 5.95,
+      "sw_l1": "非银金融",
+      "sw_l2": "多元金融"
+    },
+    {
+      "symbol": "601899",
+      "name": "紫金矿业",
+      "price": 23.32,
+      "pct": -3.87,
+      "turnover_rate": 0.9,
+      "sw_l1": "有色金属",
+      "sw_l2": "工业金属"
     },
     {
       "symbol": "002384",
       "name": "东山精密",
-      "price": 74.26,
-      "pct": 3.9,
+      "price": 73.65,
+      "pct": 3.05,
       "turnover_rate": 3.29,
       "sw_l1": "电子",
       "sw_l2": "元件"
@@ -53,61 +71,43 @@
     {
       "symbol": "603530",
       "name": "神马电力",
-      "price": 32.17,
-      "pct": 3.67,
+      "price": 31.93,
+      "pct": 2.9,
       "turnover_rate": 0.92,
       "sw_l1": "电力设备",
       "sw_l2": "电网设备"
     },
     {
-      "symbol": "002647",
-      "name": "仁东控股",
-      "price": 6.31,
-      "pct": 3.27,
-      "turnover_rate": 5.95,
-      "sw_l1": "非银金融",
-      "sw_l2": "多元金融"
-    },
-    {
-      "symbol": "600988",
-      "name": "赤峰黄金",
-      "price": 34.16,
-      "pct": -3.23,
-      "turnover_rate": 3.29,
-      "sw_l1": "有色金属",
-      "sw_l2": "贵金属"
+      "symbol": "300308",
+      "name": "中际旭创",
+      "price": 429.0,
+      "pct": 2.83,
+      "turnover_rate": 2.2,
+      "sw_l1": "通信",
+      "sw_l2": "通信设备"
     },
     {
       "symbol": "300285",
       "name": "国瓷材料",
-      "price": 35.95,
-      "pct": 3.22,
+      "price": 35.74,
+      "pct": 2.61,
       "turnover_rate": 6.41,
       "sw_l1": "电子",
       "sw_l2": "电子化学品Ⅱ"
     },
     {
-      "symbol": "601899",
-      "name": "紫金矿业",
-      "price": 23.57,
-      "pct": -2.84,
-      "turnover_rate": 0.9,
-      "sw_l1": "有色金属",
-      "sw_l2": "工业金属"
-    },
-    {
-      "symbol": "000563",
-      "name": "陕国投Ａ",
-      "price": 2.67,
-      "pct": -2.2,
-      "turnover_rate": 1.06,
-      "sw_l1": "非银金融",
-      "sw_l2": "多元金融"
+      "symbol": "600161",
+      "name": "天坛生物",
+      "price": 11.13,
+      "pct": -2.45,
+      "turnover_rate": 0.76,
+      "sw_l1": "医药生物",
+      "sw_l2": "生物制品"
     }
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-24 13:05:48",
+    "generated_at": "2026-11-24 13:24:18",
     "range": "2026-11-18 ~ 2026-11-24",
     "kpi": {
       "total": 19693,
@@ -274,9 +274,9 @@
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-24T13:05:33.091520+08:00",
+    "sentiment_at": "2026-11-24T13:24:03.453681+08:00",
     "brief_at": "",
-    "watchlist_at": "2026-11-24T13:02:56.815631+08:00",
-    "news_at": "2026-11-24 13:05:48"
+    "watchlist_at": "2026-11-24T13:21:36.935563+08:00",
+    "news_at": "2026-11-24 13:24:18"
   }
 }

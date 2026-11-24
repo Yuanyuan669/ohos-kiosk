@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-24T13:46:11+08:00",
+  "generated_at": "2026-11-24T14:06:14+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-24T13:45:16.647488+08:00",
+    "generated_at": "2026-11-24T14:05:15.199045+08:00",
     "date": "2026-11-24",
-    "turnover_yi": 13092.4,
-    "sentiment_score": 50,
-    "sentiment_label": "中性",
-    "up_count": 159,
-    "down_count": 165,
-    "advance_decline_ratio": 0.96,
+    "turnover_yi": 13863.2,
+    "sentiment_score": 40,
+    "sentiment_label": "偏冷",
+    "up_count": 126,
+    "down_count": 206,
+    "advance_decline_ratio": 0.61,
     "indices": [],
     "top_sectors": []
   },
@@ -17,97 +17,97 @@
     {
       "symbol": "600156",
       "name": "华升股份",
-      "price": 9.28,
-      "pct": 5.22,
+      "price": 9.23,
+      "pct": 4.65,
       "turnover_rate": 2.39,
       "sw_l1": "纺织服饰",
       "sw_l2": "纺织制造"
     },
     {
-      "symbol": "688183",
-      "name": "生益电子",
-      "price": 74.71,
-      "pct": 5.11,
-      "turnover_rate": 1.35,
-      "sw_l1": "电子",
-      "sw_l2": "元件"
-    },
-    {
-      "symbol": "002384",
-      "name": "东山精密",
-      "price": 74.51,
-      "pct": 4.25,
-      "turnover_rate": 3.29,
-      "sw_l1": "电子",
-      "sw_l2": "元件"
-    },
-    {
-      "symbol": "002647",
-      "name": "仁东控股",
-      "price": 6.35,
-      "pct": 3.93,
-      "turnover_rate": 5.95,
-      "sw_l1": "非银金融",
-      "sw_l2": "多元金融"
-    },
-    {
-      "symbol": "601899",
-      "name": "紫金矿业",
-      "price": 23.31,
-      "pct": -3.92,
-      "turnover_rate": 0.9,
-      "sw_l1": "有色金属",
-      "sw_l2": "工业金属"
-    },
-    {
       "symbol": "600988",
       "name": "赤峰黄金",
-      "price": 33.97,
-      "pct": -3.77,
+      "price": 33.76,
+      "pct": -4.36,
       "turnover_rate": 3.29,
       "sw_l1": "有色金属",
       "sw_l2": "贵金属"
     },
     {
-      "symbol": "300308",
-      "name": "中际旭创",
-      "price": 432.0,
-      "pct": 3.55,
-      "turnover_rate": 2.2,
-      "sw_l1": "通信",
-      "sw_l2": "通信设备"
+      "symbol": "601899",
+      "name": "紫金矿业",
+      "price": 23.26,
+      "pct": -4.12,
+      "turnover_rate": 0.9,
+      "sw_l1": "有色金属",
+      "sw_l2": "工业金属"
+    },
+    {
+      "symbol": "688183",
+      "name": "生益电子",
+      "price": 74.0,
+      "pct": 4.11,
+      "turnover_rate": 1.35,
+      "sw_l1": "电子",
+      "sw_l2": "元件"
     },
     {
       "symbol": "600161",
       "name": "天坛生物",
-      "price": 11.04,
-      "pct": -3.24,
+      "price": 11.02,
+      "pct": -3.42,
       "turnover_rate": 0.76,
       "sw_l1": "医药生物",
       "sw_l2": "生物制品"
     },
     {
-      "symbol": "603530",
-      "name": "神马电力",
-      "price": 31.97,
-      "pct": 3.03,
-      "turnover_rate": 0.92,
-      "sw_l1": "电力设备",
-      "sw_l2": "电网设备"
+      "symbol": "000563",
+      "name": "陕国投Ａ",
+      "price": 2.65,
+      "pct": -2.93,
+      "turnover_rate": 1.06,
+      "sw_l1": "非银金融",
+      "sw_l2": "多元金融"
     },
     {
-      "symbol": "300285",
-      "name": "国瓷材料",
-      "price": 35.76,
-      "pct": 2.67,
-      "turnover_rate": 6.41,
+      "symbol": "002647",
+      "name": "仁东控股",
+      "price": 6.28,
+      "pct": 2.78,
+      "turnover_rate": 5.95,
+      "sw_l1": "非银金融",
+      "sw_l2": "多元金融"
+    },
+    {
+      "symbol": "002384",
+      "name": "东山精密",
+      "price": 73.45,
+      "pct": 2.77,
+      "turnover_rate": 3.29,
       "sw_l1": "电子",
-      "sw_l2": "电子化学品Ⅱ"
+      "sw_l2": "元件"
+    },
+    {
+      "symbol": "300059",
+      "name": "东方财富",
+      "price": 18.11,
+      "pct": -2.74,
+      "turnover_rate": 1.38,
+      "sw_l1": "非银金融",
+      "sw_l2": "证券Ⅱ"
+    },
+    {
+      "symbol": "002155",
+      "name": "湖南黄金",
+      "price": 17.04,
+      "pct": -2.68,
+      "turnover_rate": 1.85,
+      "sw_l1": "有色金属",
+      "sw_l2": "贵金属"
     }
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-24 13:45:31",
+    "generated_at": "2026-11-24 14:05:30",
     "range": "2026-11-18 ~ 2026-11-24",
     "kpi": {
       "total": 19693,
@@ -274,9 +274,9 @@
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-24T13:45:16.647488+08:00",
+    "sentiment_at": "2026-11-24T14:05:15.199045+08:00",
     "brief_at": "",
-    "watchlist_at": "2026-11-24T13:42:41.152190+08:00",
-    "news_at": "2026-11-24 13:45:31"
+    "watchlist_at": "2026-11-24T14:02:56.263947+08:00",
+    "news_at": "2026-11-24 14:05:30"
   }
 }

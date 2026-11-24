@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-24T14:44:37+08:00",
+  "generated_at": "2026-11-24T15:02:11+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-24T14:43:38.117235+08:00",
+    "generated_at": "2026-11-24T15:01:13.145761+08:00",
     "date": "2026-11-24",
-    "turnover_yi": 15610.0,
+    "turnover_yi": 16649.9,
     "sentiment_score": 40,
     "sentiment_label": "偏冷",
-    "up_count": 128,
-    "down_count": 200,
-    "advance_decline_ratio": 0.64,
+    "up_count": 114,
+    "down_count": 216,
+    "advance_decline_ratio": 0.53,
     "indices": [],
     "top_sectors": []
   },
@@ -17,97 +17,97 @@
     {
       "symbol": "600988",
       "name": "赤峰黄金",
-      "price": 33.6,
-      "pct": -4.82,
+      "price": 33.64,
+      "pct": -4.7,
       "turnover_rate": 3.29,
       "sw_l1": "有色金属",
       "sw_l2": "贵金属"
     },
     {
-      "symbol": "601899",
-      "name": "紫金矿业",
-      "price": 23.1,
-      "pct": -4.78,
-      "turnover_rate": 0.9,
-      "sw_l1": "有色金属",
-      "sw_l2": "工业金属"
-    },
-    {
-      "symbol": "600161",
-      "name": "天坛生物",
-      "price": 11.0,
-      "pct": -3.59,
-      "turnover_rate": 0.76,
-      "sw_l1": "医药生物",
-      "sw_l2": "生物制品"
-    },
-    {
-      "symbol": "300059",
-      "name": "东方财富",
-      "price": 17.99,
-      "pct": -3.38,
-      "turnover_rate": 1.38,
-      "sw_l1": "非银金融",
-      "sw_l2": "证券Ⅱ"
-    },
-    {
-      "symbol": "002155",
-      "name": "湖南黄金",
-      "price": 16.97,
-      "pct": -3.08,
-      "turnover_rate": 1.85,
-      "sw_l1": "有色金属",
-      "sw_l2": "贵金属"
-    },
-    {
-      "symbol": "300803",
-      "name": "指南针",
-      "price": 41.31,
-      "pct": -3.03,
-      "turnover_rate": 2.39,
-      "sw_l1": "计算机",
-      "sw_l2": "软件开发"
-    },
-    {
       "symbol": "688183",
       "name": "生益电子",
-      "price": 73.19,
-      "pct": 2.97,
+      "price": 74.3,
+      "pct": 4.53,
       "turnover_rate": 1.35,
       "sw_l1": "电子",
       "sw_l2": "元件"
     },
     {
-      "symbol": "000657",
-      "name": "中钨高新",
-      "price": 33.93,
-      "pct": -2.86,
-      "turnover_rate": 2.87,
+      "symbol": "601899",
+      "name": "紫金矿业",
+      "price": 23.21,
+      "pct": -4.33,
+      "turnover_rate": 0.9,
       "sw_l1": "有色金属",
-      "sw_l2": "小金属"
+      "sw_l2": "工业金属"
     },
     {
-      "symbol": "002647",
-      "name": "仁东控股",
-      "price": 6.27,
-      "pct": 2.62,
-      "turnover_rate": 5.95,
+      "symbol": "300059",
+      "name": "东方财富",
+      "price": 18.01,
+      "pct": -3.28,
+      "turnover_rate": 1.38,
       "sw_l1": "非银金融",
-      "sw_l2": "多元金融"
+      "sw_l2": "证券Ⅱ"
+    },
+    {
+      "symbol": "300803",
+      "name": "指南针",
+      "price": 41.21,
+      "pct": -3.26,
+      "turnover_rate": 2.39,
+      "sw_l1": "计算机",
+      "sw_l2": "软件开发"
+    },
+    {
+      "symbol": "600161",
+      "name": "天坛生物",
+      "price": 11.05,
+      "pct": -3.16,
+      "turnover_rate": 0.76,
+      "sw_l1": "医药生物",
+      "sw_l2": "生物制品"
     },
     {
       "symbol": "000009",
       "name": "中国宝安",
-      "price": 6.3,
-      "pct": -2.48,
+      "price": 6.27,
+      "pct": -2.94,
       "turnover_rate": 0.47,
       "sw_l1": "电力设备",
       "sw_l2": "电池"
+    },
+    {
+      "symbol": "002155",
+      "name": "湖南黄金",
+      "price": 17.0,
+      "pct": -2.91,
+      "turnover_rate": 1.85,
+      "sw_l1": "有色金属",
+      "sw_l2": "贵金属"
+    },
+    {
+      "symbol": "600156",
+      "name": "华升股份",
+      "price": 8.57,
+      "pct": -2.83,
+      "turnover_rate": 2.39,
+      "sw_l1": "纺织服饰",
+      "sw_l2": "纺织制造"
+    },
+    {
+      "symbol": "600737",
+      "name": "中粮糖业",
+      "price": 11.74,
+      "pct": 2.8,
+      "turnover_rate": 4.04,
+      "sw_l1": "农林牧渔",
+      "sw_l2": "农产品加工"
     }
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-24 14:43:54",
+    "generated_at": "2026-11-24 15:01:28",
     "range": "2026-11-18 ~ 2026-11-24",
     "kpi": {
       "total": 19693,
@@ -274,9 +274,9 @@
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-24T14:43:38.117235+08:00",
+    "sentiment_at": "2026-11-24T15:01:13.145761+08:00",
     "brief_at": "",
-    "watchlist_at": "2026-11-24T14:41:36.076881+08:00",
-    "news_at": "2026-11-24 14:43:54"
+    "watchlist_at": "2026-11-24T14:59:29.230165+08:00",
+    "news_at": "2026-11-24 15:01:28"
   }
 }

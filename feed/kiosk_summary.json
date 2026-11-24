@@ -1,33 +1,24 @@
 {
-  "generated_at": "2026-11-24T14:06:14+08:00",
+  "generated_at": "2026-11-24T14:24:41+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-24T14:05:15.199045+08:00",
+    "generated_at": "2026-11-24T14:23:43.922879+08:00",
     "date": "2026-11-24",
-    "turnover_yi": 13863.2,
-    "sentiment_score": 40,
+    "turnover_yi": 14759.9,
+    "sentiment_score": 35,
     "sentiment_label": "偏冷",
-    "up_count": 126,
-    "down_count": 206,
-    "advance_decline_ratio": 0.61,
+    "up_count": 106,
+    "down_count": 221,
+    "advance_decline_ratio": 0.48,
     "indices": [],
     "top_sectors": []
   },
   "watchlist": [
     {
-      "symbol": "600156",
-      "name": "华升股份",
-      "price": 9.23,
-      "pct": 4.65,
-      "turnover_rate": 2.39,
-      "sw_l1": "纺织服饰",
-      "sw_l2": "纺织制造"
-    },
-    {
       "symbol": "600988",
       "name": "赤峰黄金",
-      "price": 33.76,
-      "pct": -4.36,
+      "price": 33.74,
+      "pct": -4.42,
       "turnover_rate": 3.29,
       "sw_l1": "有色金属",
       "sw_l2": "贵金属"
@@ -35,8 +26,8 @@
     {
       "symbol": "601899",
       "name": "紫金矿业",
-      "price": 23.26,
-      "pct": -4.12,
+      "price": 23.22,
+      "pct": -4.29,
       "turnover_rate": 0.9,
       "sw_l1": "有色金属",
       "sw_l2": "工业金属"
@@ -44,8 +35,8 @@
     {
       "symbol": "688183",
       "name": "生益电子",
-      "price": 74.0,
-      "pct": 4.11,
+      "price": 73.64,
+      "pct": 3.6,
       "turnover_rate": 1.35,
       "sw_l1": "电子",
       "sw_l2": "元件"
@@ -53,38 +44,11 @@
     {
       "symbol": "600161",
       "name": "天坛生物",
-      "price": 11.02,
-      "pct": -3.42,
+      "price": 11.06,
+      "pct": -3.07,
       "turnover_rate": 0.76,
       "sw_l1": "医药生物",
       "sw_l2": "生物制品"
-    },
-    {
-      "symbol": "000563",
-      "name": "陕国投Ａ",
-      "price": 2.65,
-      "pct": -2.93,
-      "turnover_rate": 1.06,
-      "sw_l1": "非银金融",
-      "sw_l2": "多元金融"
-    },
-    {
-      "symbol": "002647",
-      "name": "仁东控股",
-      "price": 6.28,
-      "pct": 2.78,
-      "turnover_rate": 5.95,
-      "sw_l1": "非银金融",
-      "sw_l2": "多元金融"
-    },
-    {
-      "symbol": "002384",
-      "name": "东山精密",
-      "price": 73.45,
-      "pct": 2.77,
-      "turnover_rate": 3.29,
-      "sw_l1": "电子",
-      "sw_l2": "元件"
     },
     {
       "symbol": "300059",
@@ -96,18 +60,54 @@
       "sw_l2": "证券Ⅱ"
     },
     {
+      "symbol": "600737",
+      "name": "中粮糖业",
+      "price": 11.73,
+      "pct": 2.71,
+      "turnover_rate": 4.04,
+      "sw_l1": "农林牧渔",
+      "sw_l2": "农产品加工"
+    },
+    {
       "symbol": "002155",
       "name": "湖南黄金",
-      "price": 17.04,
-      "pct": -2.68,
+      "price": 17.05,
+      "pct": -2.63,
       "turnover_rate": 1.85,
       "sw_l1": "有色金属",
       "sw_l2": "贵金属"
+    },
+    {
+      "symbol": "603530",
+      "name": "神马电力",
+      "price": 31.84,
+      "pct": 2.61,
+      "turnover_rate": 0.92,
+      "sw_l1": "电力设备",
+      "sw_l2": "电网设备"
+    },
+    {
+      "symbol": "300803",
+      "name": "指南针",
+      "price": 41.49,
+      "pct": -2.61,
+      "turnover_rate": 2.39,
+      "sw_l1": "计算机",
+      "sw_l2": "软件开发"
+    },
+    {
+      "symbol": "000657",
+      "name": "中钨高新",
+      "price": 34.03,
+      "pct": -2.58,
+      "turnover_rate": 2.87,
+      "sw_l1": "有色金属",
+      "sw_l2": "小金属"
     }
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-24 14:05:30",
+    "generated_at": "2026-11-24 14:24:00",
     "range": "2026-11-18 ~ 2026-11-24",
     "kpi": {
       "total": 19693,
@@ -274,9 +274,9 @@
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-24T14:05:15.199045+08:00",
+    "sentiment_at": "2026-11-24T14:23:43.922879+08:00",
     "brief_at": "",
-    "watchlist_at": "2026-11-24T14:02:56.263947+08:00",
-    "news_at": "2026-11-24 14:05:30"
+    "watchlist_at": "2026-11-24T14:21:35.354785+08:00",
+    "news_at": "2026-11-24 14:24:00"
   }
 }

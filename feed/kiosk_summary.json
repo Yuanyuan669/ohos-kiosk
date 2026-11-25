@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-25T14:26:08+08:00",
+  "generated_at": "2026-11-25T14:44:26+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-25T14:25:09.151083+08:00",
+    "generated_at": "2026-11-25T14:43:28.496849+08:00",
     "date": "2026-11-25",
-    "turnover_yi": 11407.6,
+    "turnover_yi": 12436.8,
     "sentiment_score": 35,
     "sentiment_label": "偏冷",
-    "up_count": 48,
-    "down_count": 284,
-    "advance_decline_ratio": 0.17,
+    "up_count": 46,
+    "down_count": 283,
+    "advance_decline_ratio": 0.16,
     "indices": [],
     "top_sectors": []
   },
@@ -17,8 +17,8 @@
     {
       "symbol": "600156",
       "name": "华升股份",
-      "price": 9.21,
-      "pct": 7.59,
+      "price": 9.39,
+      "pct": 9.7,
       "turnover_rate": 2.39,
       "sw_l1": "纺织服饰",
       "sw_l2": "纺织制造"
@@ -26,17 +26,26 @@
     {
       "symbol": "300285",
       "name": "国瓷材料",
-      "price": 32.61,
-      "pct": -6.72,
+      "price": 32.3,
+      "pct": -7.61,
       "turnover_rate": 6.41,
       "sw_l1": "电子",
       "sw_l2": "电子化学品Ⅱ"
     },
     {
+      "symbol": "603122",
+      "name": "合富中国",
+      "price": 9.84,
+      "pct": 7.31,
+      "turnover_rate": 6.89,
+      "sw_l1": "医药生物",
+      "sw_l2": "医药商业"
+    },
+    {
       "symbol": "603530",
       "name": "神马电力",
-      "price": 29.5,
-      "pct": -6.7,
+      "price": 29.37,
+      "pct": -7.12,
       "turnover_rate": 0.92,
       "sw_l1": "电力设备",
       "sw_l2": "电网设备"
@@ -44,70 +53,61 @@
     {
       "symbol": "002606",
       "name": "大连电瓷",
-      "price": 10.44,
-      "pct": -6.7,
+      "price": 10.42,
+      "pct": -6.88,
       "turnover_rate": 2.03,
       "sw_l1": "电力设备",
       "sw_l2": "电网设备"
     },
     {
-      "symbol": "603122",
-      "name": "合富中国",
-      "price": 9.76,
-      "pct": 6.43,
-      "turnover_rate": 6.89,
-      "sw_l1": "医药生物",
-      "sw_l2": "医药商业"
-    },
-    {
       "symbol": "002647",
       "name": "仁东控股",
-      "price": 6.0,
-      "pct": -4.61,
+      "price": 5.95,
+      "pct": -5.41,
       "turnover_rate": 5.95,
       "sw_l1": "非银金融",
       "sw_l2": "多元金融"
     },
     {
-      "symbol": "000657",
-      "name": "中钨高新",
-      "price": 32.53,
-      "pct": -4.32,
-      "turnover_rate": 2.87,
-      "sw_l1": "有色金属",
-      "sw_l2": "小金属"
-    },
-    {
       "symbol": "600773",
       "name": "西藏城投",
-      "price": 6.95,
-      "pct": -4.27,
+      "price": 6.91,
+      "pct": -4.82,
       "turnover_rate": 1.69,
       "sw_l1": "房地产",
       "sw_l2": "房地产开发"
     },
     {
+      "symbol": "000657",
+      "name": "中钨高新",
+      "price": 32.4,
+      "pct": -4.71,
+      "turnover_rate": 2.87,
+      "sw_l1": "有色金属",
+      "sw_l2": "小金属"
+    },
+    {
       "symbol": "600737",
       "name": "中粮糖业",
-      "price": 11.26,
-      "pct": -4.09,
+      "price": 11.19,
+      "pct": -4.68,
       "turnover_rate": 4.04,
       "sw_l1": "农林牧渔",
       "sw_l2": "农产品加工"
     },
     {
-      "symbol": "600176",
-      "name": "中国巨石",
-      "price": 25.68,
-      "pct": -3.86,
-      "turnover_rate": 2.56,
-      "sw_l1": "建筑材料",
-      "sw_l2": "玻璃玻纤"
+      "symbol": "600490",
+      "name": "鹏欣资源",
+      "price": 4.41,
+      "pct": -4.34,
+      "turnover_rate": 1.17,
+      "sw_l1": "有色金属",
+      "sw_l2": "工业金属"
     }
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-25 14:25:25",
+    "generated_at": "2026-11-25 14:43:44",
     "range": "2026-11-19 ~ 2026-11-25",
     "kpi": {
       "total": 19226,
@@ -274,9 +274,9 @@
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-25T14:25:09.151083+08:00",
+    "sentiment_at": "2026-11-25T14:43:28.496849+08:00",
     "brief_at": "",
-    "watchlist_at": "2026-11-25T14:23:13.882860+08:00",
-    "news_at": "2026-11-25 14:25:25"
+    "watchlist_at": "2026-11-25T14:41:33.807645+08:00",
+    "news_at": "2026-11-25 14:43:44"
   }
 }

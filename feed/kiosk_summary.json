@@ -1,33 +1,24 @@
 {
-  "generated_at": "2026-11-25T10:24:42+08:00",
+  "generated_at": "2026-11-25T10:44:52+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-25T10:23:44.377661+08:00",
+    "generated_at": "2026-11-25T10:43:54.701866+08:00",
     "date": "2026-11-25",
-    "turnover_yi": 5555.4,
+    "turnover_yi": 6337.3,
     "sentiment_score": 40,
     "sentiment_label": "偏冷",
-    "up_count": 116,
-    "down_count": 212,
-    "advance_decline_ratio": 0.55,
+    "up_count": 120,
+    "down_count": 206,
+    "advance_decline_ratio": 0.58,
     "indices": [],
     "top_sectors": []
   },
   "watchlist": [
     {
-      "symbol": "600156",
-      "name": "华升股份",
-      "price": 9.01,
-      "pct": 5.26,
-      "turnover_rate": 2.39,
-      "sw_l1": "纺织服饰",
-      "sw_l2": "纺织制造"
-    },
-    {
       "symbol": "603122",
       "name": "合富中国",
-      "price": 9.6,
-      "pct": 4.69,
+      "price": 10.09,
+      "pct": 10.03,
       "turnover_rate": 6.89,
       "sw_l1": "医药生物",
       "sw_l2": "医药商业"
@@ -35,17 +26,35 @@
     {
       "symbol": "002788",
       "name": "鹭燕医药",
-      "price": 8.65,
-      "pct": 4.34,
+      "price": 8.72,
+      "pct": 5.19,
       "turnover_rate": 2.48,
       "sw_l1": "医药生物",
       "sw_l2": "医药商业"
     },
     {
+      "symbol": "600156",
+      "name": "华升股份",
+      "price": 8.98,
+      "pct": 4.91,
+      "turnover_rate": 2.39,
+      "sw_l1": "纺织服饰",
+      "sw_l2": "纺织制造"
+    },
+    {
+      "symbol": "688183",
+      "name": "生益电子",
+      "price": 77.49,
+      "pct": 3.94,
+      "turnover_rate": 1.35,
+      "sw_l1": "电子",
+      "sw_l2": "元件"
+    },
+    {
       "symbol": "603530",
       "name": "神马电力",
-      "price": 30.63,
-      "pct": -3.13,
+      "price": 30.55,
+      "pct": -3.38,
       "turnover_rate": 0.92,
       "sw_l1": "电力设备",
       "sw_l2": "电网设备"
@@ -53,8 +62,8 @@
     {
       "symbol": "000712",
       "name": "锦龙股份",
-      "price": 7.67,
-      "pct": 3.09,
+      "price": 7.69,
+      "pct": 3.36,
       "turnover_rate": 11.19,
       "sw_l1": "非银金融",
       "sw_l2": "证券Ⅱ"
@@ -62,8 +71,8 @@
     {
       "symbol": "000567",
       "name": "海德股份",
-      "price": 4.01,
-      "pct": 2.82,
+      "price": 4.0,
+      "pct": 2.56,
       "turnover_rate": 0.88,
       "sw_l1": "非银金融",
       "sw_l2": "多元金融"
@@ -71,8 +80,8 @@
     {
       "symbol": "600161",
       "name": "天坛生物",
-      "price": 11.3,
-      "pct": 2.26,
+      "price": 11.32,
+      "pct": 2.44,
       "turnover_rate": 0.76,
       "sw_l1": "医药生物",
       "sw_l2": "生物制品"
@@ -87,27 +96,18 @@
       "sw_l2": "生物制品"
     },
     {
-      "symbol": "002281",
-      "name": "光迅科技",
-      "price": 82.52,
-      "pct": 2.13,
-      "turnover_rate": 3.42,
-      "sw_l1": "通信",
-      "sw_l2": "通信设备"
-    },
-    {
-      "symbol": "002948",
-      "name": "青岛银行",
-      "price": 6.38,
-      "pct": -2.0,
-      "turnover_rate": 1.23,
-      "sw_l1": "银行",
-      "sw_l2": "城商行Ⅱ"
+      "symbol": "300285",
+      "name": "国瓷材料",
+      "price": 34.21,
+      "pct": -2.15,
+      "turnover_rate": 6.41,
+      "sw_l1": "电子",
+      "sw_l2": "电子化学品Ⅱ"
     }
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-25 10:23:59",
+    "generated_at": "2026-11-25 10:44:10",
     "range": "2026-11-19 ~ 2026-11-25",
     "kpi": {
       "total": 18701,
@@ -274,9 +274,9 @@
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-25T10:23:44.377661+08:00",
+    "sentiment_at": "2026-11-25T10:43:54.701866+08:00",
     "brief_at": "",
-    "watchlist_at": "2026-11-25T10:21:31.694554+08:00",
-    "news_at": "2026-11-25 10:23:59"
+    "watchlist_at": "2026-11-25T10:41:32.036048+08:00",
+    "news_at": "2026-11-25 10:44:10"
   }
 }

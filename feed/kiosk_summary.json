@@ -1,70 +1,18 @@
 {
-  "generated_at": "2026-11-26T15:39:29+08:00",
+  "generated_at": "2026-11-26T19:40:25+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-26T15:36:51.933066+08:00",
+    "generated_at": "2026-11-26T19:37:28.895511+08:00",
     "date": "2026-11-26",
     "turnover_yi": 13261.5,
-    "sentiment_score": 40,
-    "sentiment_label": "偏冷",
+    "sentiment_score": 50,
+    "sentiment_label": "中性",
     "up_count": 132,
     "down_count": 195,
     "advance_decline_ratio": 0.68,
-    "indices": [
-      {
-        "name": "上证指数",
-        "close": 3476.88,
-        "pct": 0.01
-      },
-      {
-        "name": "深证成指",
-        "close": 10084.04,
-        "pct": -0.02
-      },
-      {
-        "name": "创业板指",
-        "close": 2189.82,
-        "pct": 0.29
-      }
-    ],
-    "top_sectors": [
-      {
-        "name": "贵金属",
-        "pct": 4.22,
-        "net_in_yi": 12.3
-      },
-      {
-        "name": "元件",
-        "pct": 3.94,
-        "net_in_yi": 19.3
-      },
-      {
-        "name": "煤炭开采加工",
-        "pct": 2.46,
-        "net_in_yi": 12.3
-      },
-      {
-        "name": "油气开采及服务",
-        "pct": 2.29,
-        "net_in_yi": 3.7
-      },
-      {
-        "name": "造纸",
-        "pct": 1.74,
-        "net_in_yi": -1.6
-      }
-    ],
-    "nation_team": {
-      "turnover_date": "2026-11-26",
-      "shares_date": "2026-11-25",
-      "is_today": true,
-      "activity": "常态",
-      "ratio_vs_median": 1.12,
-      "tier1_turnover_yi": 95.8,
-      "confirmed_creation_yi": 287.1,
-      "stance": "护盘确认",
-      "confidence": "high"
-    }
+    "indices": [],
+    "top_sectors": [],
+    "nation_team": null
   },
   "watchlist": [
     {
@@ -160,14 +108,14 @@
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-26 15:38:27",
+    "generated_at": "2026-11-26 19:39:33",
     "range": "2026-11-20 ~ 2026-11-26",
     "kpi": {
-      "total": 19488,
-      "themed": 8179,
-      "avg_impact": 0.418,
-      "pos": 4979,
-      "neg": 4754,
+      "total": 20077,
+      "themed": 8431,
+      "avg_impact": 0.417,
+      "pos": 5114,
+      "neg": 4884,
       "alerts": 100,
       "sources": 39
     },
@@ -181,6 +129,17 @@
         "theme": true,
         "symbols": [
           "688126"
+        ]
+      },
+      {
+        "ts": "2026-11-26 18:27",
+        "source": "财联社",
+        "title": "*ST沐邦：撤销退市风险警示并继续实施其他风险警示 11月30日起股票简称变更为“ST沐邦”",
+        "impact": 0.772,
+        "sentiment": -0.85,
+        "theme": true,
+        "symbols": [
+          "603398"
         ]
       },
       {
@@ -239,25 +198,14 @@
         ]
       },
       {
-        "ts": "2026-11-24 21:03",
+        "ts": "2026-11-26 18:10",
         "source": "财联社",
-        "title": "中信建投：AI科研取得突破 办公Agent需求增长",
-        "impact": 0.763,
-        "sentiment": 0.813,
+        "title": "海伦哲：拟1亿元至2亿元回购公司股份",
+        "impact": 0.764,
+        "sentiment": 0.714,
         "theme": true,
         "symbols": [
-          "601066"
-        ]
-      },
-      {
-        "ts": "2026-11-22 15:34",
-        "source": "东财全球资讯",
-        "title": "天阳科技：因涉嫌信息披露违法违规 证监会决定对公司立案",
-        "impact": 0.761,
-        "sentiment": -0.846,
-        "theme": true,
-        "symbols": [
-          "300872"
+          "300201"
         ]
       }
     ],
@@ -321,15 +269,15 @@
     ],
     "warnings": [
       "2026-11-20 英文条目 1372 条 > 1000 阈值（统计提示：该日如需重打分应转 Windows；当前无需操作）",
-      "2026-11-24 英文条目 1187 条 > 1000 阈值（统计提示：该日如需重打分应转 Windows；当前无需操作）",
-      "2026-11-25 英文条目 1116 条 > 1000 阈值（统计提示：该日如需重打分应转 Windows；当前无需操作）"
+      "2026-11-24 英文条目 1195 条 > 1000 阈值（统计提示：该日如需重打分应转 Windows；当前无需操作）",
+      "2026-11-25 英文条目 1129 条 > 1000 阈值（统计提示：该日如需重打分应转 Windows；当前无需操作）"
     ]
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-26T15:36:51.933066+08:00",
-    "brief_at": "2026-11-26 15:38:38",
-    "watchlist_at": "2026-11-26T15:32:30.099383+08:00",
-    "news_at": "2026-11-26 15:38:27"
+    "sentiment_at": "2026-11-26T19:37:28.895511+08:00",
+    "brief_at": "",
+    "watchlist_at": "2026-11-26T19:32:59.649455+08:00",
+    "news_at": "2026-11-26 19:39:33"
   }
 }

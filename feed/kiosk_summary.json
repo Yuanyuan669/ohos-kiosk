@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-26T13:28:15+08:00",
+  "generated_at": "2026-11-26T13:45:04+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-26T13:26:31.701161+08:00",
+    "generated_at": "2026-11-26T13:44:06.768131+08:00",
     "date": "2026-11-26",
-    "turnover_yi": 9037.2,
-    "sentiment_score": 50,
-    "sentiment_label": "中性",
-    "up_count": 178,
-    "down_count": 150,
-    "advance_decline_ratio": 1.19,
+    "turnover_yi": 9632.1,
+    "sentiment_score": 45,
+    "sentiment_label": "偏冷",
+    "up_count": 141,
+    "down_count": 185,
+    "advance_decline_ratio": 0.76,
     "indices": [],
     "top_sectors": [],
     "nation_team": null
@@ -18,97 +18,97 @@
     {
       "symbol": "603122",
       "name": "合富中国",
-      "price": 9.39,
-      "pct": -6.94,
+      "price": 9.32,
+      "pct": -7.63,
       "turnover_rate": 6.89,
       "sw_l1": "医药生物",
       "sw_l2": "医药商业"
     },
     {
+      "symbol": "600988",
+      "name": "赤峰黄金",
+      "price": 35.4,
+      "pct": 5.17,
+      "turnover_rate": 3.29,
+      "sw_l1": "有色金属",
+      "sw_l2": "贵金属"
+    },
+    {
       "symbol": "688183",
       "name": "生益电子",
-      "price": 80.1,
-      "pct": 6.46,
+      "price": 78.77,
+      "pct": 4.69,
       "turnover_rate": 1.35,
       "sw_l1": "电子",
       "sw_l2": "元件"
     },
     {
-      "symbol": "600988",
-      "name": "赤峰黄金",
-      "price": 35.6,
-      "pct": 5.76,
-      "turnover_rate": 3.29,
+      "symbol": "600156",
+      "name": "华升股份",
+      "price": 9.67,
+      "pct": 3.76,
+      "turnover_rate": 2.39,
+      "sw_l1": "纺织服饰",
+      "sw_l2": "纺织制造"
+    },
+    {
+      "symbol": "600938",
+      "name": "中国海油",
+      "price": 30.94,
+      "pct": 3.58,
+      "turnover_rate": 1.41,
+      "sw_l1": "",
+      "sw_l2": ""
+    },
+    {
+      "symbol": "002155",
+      "name": "湖南黄金",
+      "price": 16.82,
+      "pct": 3.44,
+      "turnover_rate": 1.85,
       "sw_l1": "有色金属",
       "sw_l2": "贵金属"
     },
     {
       "symbol": "600490",
       "name": "鹏欣资源",
-      "price": 4.59,
-      "pct": 4.32,
+      "price": 4.53,
+      "pct": 2.95,
       "turnover_rate": 1.17,
       "sw_l1": "有色金属",
       "sw_l2": "工业金属"
     },
     {
-      "symbol": "002155",
-      "name": "湖南黄金",
-      "price": 16.96,
-      "pct": 4.31,
-      "turnover_rate": 1.85,
+      "symbol": "601899",
+      "name": "紫金矿业",
+      "price": 23.64,
+      "pct": 2.92,
+      "turnover_rate": 0.9,
       "sw_l1": "有色金属",
-      "sw_l2": "贵金属"
-    },
-    {
-      "symbol": "000657",
-      "name": "中钨高新",
-      "price": 33.43,
-      "pct": 3.82,
-      "turnover_rate": 2.87,
-      "sw_l1": "有色金属",
-      "sw_l2": "小金属"
+      "sw_l2": "工业金属"
     },
     {
       "symbol": "300308",
       "name": "中际旭创",
-      "price": 424.4,
-      "pct": 3.77,
+      "price": 420.12,
+      "pct": 2.72,
       "turnover_rate": 2.2,
       "sw_l1": "通信",
       "sw_l2": "通信设备"
     },
     {
-      "symbol": "000712",
-      "name": "锦龙股份",
-      "price": 7.65,
-      "pct": 3.66,
-      "turnover_rate": 11.19,
-      "sw_l1": "非银金融",
-      "sw_l2": "证券Ⅱ"
-    },
-    {
-      "symbol": "002384",
-      "name": "东山精密",
-      "price": 72.1,
-      "pct": 3.3,
-      "turnover_rate": 3.29,
-      "sw_l1": "电子",
-      "sw_l2": "元件"
-    },
-    {
-      "symbol": "601899",
-      "name": "紫金矿业",
-      "price": 23.68,
-      "pct": 3.09,
-      "turnover_rate": 0.9,
-      "sw_l1": "有色金属",
-      "sw_l2": "工业金属"
+      "symbol": "300888",
+      "name": "稳健医疗",
+      "price": 27.79,
+      "pct": -2.66,
+      "turnover_rate": 0.96,
+      "sw_l1": "美容护理",
+      "sw_l2": "个护用品"
     }
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-26 13:27:33",
+    "generated_at": "2026-11-26 13:44:22",
     "range": "2026-11-20 ~ 2026-11-26",
     "kpi": {
       "total": 18961,
@@ -275,9 +275,9 @@
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-26T13:26:31.701161+08:00",
+    "sentiment_at": "2026-11-26T13:44:06.768131+08:00",
     "brief_at": "",
-    "watchlist_at": "2026-11-26T13:21:32.123527+08:00",
-    "news_at": "2026-11-26 13:27:33"
+    "watchlist_at": "2026-11-26T13:41:35.797302+08:00",
+    "news_at": "2026-11-26 13:44:22"
   }
 }

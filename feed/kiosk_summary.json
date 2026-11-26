@@ -1,34 +1,25 @@
 {
-  "generated_at": "2026-11-26T13:45:04+08:00",
+  "generated_at": "2026-11-26T14:05:03+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-26T13:44:06.768131+08:00",
+    "generated_at": "2026-11-26T14:04:05.619012+08:00",
     "date": "2026-11-26",
-    "turnover_yi": 9632.1,
-    "sentiment_score": 45,
+    "turnover_yi": 10385.0,
+    "sentiment_score": 40,
     "sentiment_label": "偏冷",
-    "up_count": 141,
-    "down_count": 185,
-    "advance_decline_ratio": 0.76,
+    "up_count": 120,
+    "down_count": 206,
+    "advance_decline_ratio": 0.58,
     "indices": [],
     "top_sectors": [],
     "nation_team": null
   },
   "watchlist": [
     {
-      "symbol": "603122",
-      "name": "合富中国",
-      "price": 9.32,
-      "pct": -7.63,
-      "turnover_rate": 6.89,
-      "sw_l1": "医药生物",
-      "sw_l2": "医药商业"
-    },
-    {
       "symbol": "600988",
       "name": "赤峰黄金",
-      "price": 35.4,
-      "pct": 5.17,
+      "price": 35.36,
+      "pct": 5.05,
       "turnover_rate": 3.29,
       "sw_l1": "有色金属",
       "sw_l2": "贵金属"
@@ -36,20 +27,20 @@
     {
       "symbol": "688183",
       "name": "生益电子",
-      "price": 78.77,
-      "pct": 4.69,
+      "price": 78.68,
+      "pct": 4.57,
       "turnover_rate": 1.35,
       "sw_l1": "电子",
       "sw_l2": "元件"
     },
     {
-      "symbol": "600156",
-      "name": "华升股份",
-      "price": 9.67,
-      "pct": 3.76,
-      "turnover_rate": 2.39,
-      "sw_l1": "纺织服饰",
-      "sw_l2": "纺织制造"
+      "symbol": "603122",
+      "name": "合富中国",
+      "price": 9.68,
+      "pct": -4.06,
+      "turnover_rate": 6.89,
+      "sw_l1": "医药生物",
+      "sw_l2": "医药商业"
     },
     {
       "symbol": "600938",
@@ -61,54 +52,63 @@
       "sw_l2": ""
     },
     {
-      "symbol": "002155",
-      "name": "湖南黄金",
-      "price": 16.82,
-      "pct": 3.44,
-      "turnover_rate": 1.85,
-      "sw_l1": "有色金属",
-      "sw_l2": "贵金属"
-    },
-    {
-      "symbol": "600490",
-      "name": "鹏欣资源",
-      "price": 4.53,
-      "pct": 2.95,
-      "turnover_rate": 1.17,
-      "sw_l1": "有色金属",
-      "sw_l2": "工业金属"
-    },
-    {
-      "symbol": "601899",
-      "name": "紫金矿业",
-      "price": 23.64,
-      "pct": 2.92,
-      "turnover_rate": 0.9,
-      "sw_l1": "有色金属",
-      "sw_l2": "工业金属"
-    },
-    {
       "symbol": "300308",
       "name": "中际旭创",
-      "price": 420.12,
-      "pct": 2.72,
+      "price": 422.32,
+      "pct": 3.26,
       "turnover_rate": 2.2,
       "sw_l1": "通信",
       "sw_l2": "通信设备"
     },
     {
+      "symbol": "002155",
+      "name": "湖南黄金",
+      "price": 16.76,
+      "pct": 3.08,
+      "turnover_rate": 1.85,
+      "sw_l1": "有色金属",
+      "sw_l2": "贵金属"
+    },
+    {
       "symbol": "300888",
       "name": "稳健医疗",
-      "price": 27.79,
-      "pct": -2.66,
+      "price": 27.68,
+      "pct": -3.05,
       "turnover_rate": 0.96,
       "sw_l1": "美容护理",
       "sw_l2": "个护用品"
+    },
+    {
+      "symbol": "300294",
+      "name": "博雅生物",
+      "price": 11.69,
+      "pct": -2.91,
+      "turnover_rate": 1.07,
+      "sw_l1": "医药生物",
+      "sw_l2": "生物制品"
+    },
+    {
+      "symbol": "601899",
+      "name": "紫金矿业",
+      "price": 23.61,
+      "pct": 2.79,
+      "turnover_rate": 0.9,
+      "sw_l1": "有色金属",
+      "sw_l2": "工业金属"
+    },
+    {
+      "symbol": "600161",
+      "name": "天坛生物",
+      "price": 10.98,
+      "pct": -2.75,
+      "turnover_rate": 0.76,
+      "sw_l1": "医药生物",
+      "sw_l2": "生物制品"
     }
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-26 13:44:22",
+    "generated_at": "2026-11-26 14:04:22",
     "range": "2026-11-20 ~ 2026-11-26",
     "kpi": {
       "total": 18961,
@@ -275,9 +275,9 @@
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-26T13:44:06.768131+08:00",
+    "sentiment_at": "2026-11-26T14:04:05.619012+08:00",
     "brief_at": "",
-    "watchlist_at": "2026-11-26T13:41:35.797302+08:00",
-    "news_at": "2026-11-26 13:44:22"
+    "watchlist_at": "2026-11-26T14:01:48.811097+08:00",
+    "news_at": "2026-11-26 14:04:22"
   }
 }

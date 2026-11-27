@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-27T10:07:33+08:00",
+  "generated_at": "2026-11-27T10:25:25+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-27T10:06:22.076686+08:00",
+    "generated_at": "2026-11-27T10:24:14.782745+08:00",
     "date": "2026-11-27",
-    "turnover_yi": 4443.0,
-    "sentiment_score": 40,
+    "turnover_yi": 5473.2,
+    "sentiment_score": 45,
     "sentiment_label": "偏冷",
-    "up_count": 134,
-    "down_count": 195,
-    "advance_decline_ratio": 0.69,
+    "up_count": 153,
+    "down_count": 173,
+    "advance_decline_ratio": 0.88,
     "indices": [],
     "top_sectors": [],
     "nation_team": null
@@ -18,8 +18,8 @@
     {
       "symbol": "603122",
       "name": "合富中国",
-      "price": 9.0,
-      "pct": -6.74,
+      "price": 9.02,
+      "pct": -6.53,
       "turnover_rate": 6.89,
       "sw_l1": "医药生物",
       "sw_l2": "医药商业"
@@ -27,17 +27,44 @@
     {
       "symbol": "002670",
       "name": "国盛证券",
-      "price": 9.07,
-      "pct": 2.83,
+      "price": 9.26,
+      "pct": 4.99,
       "turnover_rate": 1.11,
       "sw_l1": "非银金融",
       "sw_l2": "证券Ⅱ"
     },
     {
+      "symbol": "600156",
+      "name": "华升股份",
+      "price": 9.99,
+      "pct": 3.42,
+      "turnover_rate": 2.39,
+      "sw_l1": "纺织服饰",
+      "sw_l2": "纺织制造"
+    },
+    {
+      "symbol": "002281",
+      "name": "光迅科技",
+      "price": 81.45,
+      "pct": 2.92,
+      "turnover_rate": 3.42,
+      "sw_l1": "通信",
+      "sw_l2": "通信设备"
+    },
+    {
+      "symbol": "300803",
+      "name": "指南针",
+      "price": 40.16,
+      "pct": 2.55,
+      "turnover_rate": 2.39,
+      "sw_l1": "计算机",
+      "sw_l2": "软件开发"
+    },
+    {
       "symbol": "688183",
       "name": "生益电子",
-      "price": 78.61,
-      "pct": -2.35,
+      "price": 78.47,
+      "pct": -2.52,
       "turnover_rate": 1.35,
       "sw_l1": "电子",
       "sw_l2": "元件"
@@ -45,62 +72,35 @@
     {
       "symbol": "000712",
       "name": "锦龙股份",
-      "price": 7.75,
-      "pct": 2.24,
+      "price": 7.76,
+      "pct": 2.37,
       "turnover_rate": 11.19,
       "sw_l1": "非银金融",
       "sw_l2": "证券Ⅱ"
     },
     {
-      "symbol": "300803",
-      "name": "指南针",
-      "price": 40.0,
-      "pct": 2.15,
-      "turnover_rate": 2.39,
-      "sw_l1": "计算机",
-      "sw_l2": "软件开发"
-    },
-    {
-      "symbol": "002647",
-      "name": "仁东控股",
-      "price": 5.95,
-      "pct": 1.71,
-      "turnover_rate": 5.95,
-      "sw_l1": "非银金融",
-      "sw_l2": "多元金融"
-    },
-    {
       "symbol": "001236",
       "name": "弘业期货",
-      "price": 6.1,
-      "pct": 1.67,
+      "price": 6.11,
+      "pct": 1.83,
       "turnover_rate": 2.09,
       "sw_l1": "非银金融",
       "sw_l2": "多元金融"
     },
     {
-      "symbol": "002281",
-      "name": "光迅科技",
-      "price": 80.44,
-      "pct": 1.64,
-      "turnover_rate": 3.42,
-      "sw_l1": "通信",
-      "sw_l2": "通信设备"
-    },
-    {
-      "symbol": "002945",
-      "name": "华林证券",
-      "price": 14.38,
-      "pct": 1.63,
-      "turnover_rate": 2.37,
+      "symbol": "002673",
+      "name": "西部证券",
+      "price": 5.78,
+      "pct": 1.76,
+      "turnover_rate": 0.6,
       "sw_l1": "非银金融",
       "sw_l2": "证券Ⅱ"
     },
     {
       "symbol": "300308",
       "name": "中际旭创",
-      "price": 436.21,
-      "pct": 1.4,
+      "price": 437.62,
+      "pct": 1.73,
       "turnover_rate": 2.2,
       "sw_l1": "通信",
       "sw_l2": "通信设备"
@@ -108,7 +108,7 @@
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-27 10:06:36",
+    "generated_at": "2026-11-27 10:24:29",
     "range": "2026-11-21 ~ 2026-11-27",
     "kpi": {
       "total": 17569,
@@ -274,9 +274,9 @@
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-27T10:06:22.076686+08:00",
+    "sentiment_at": "2026-11-27T10:24:14.782745+08:00",
     "brief_at": "",
-    "watchlist_at": "2026-11-27T10:01:46.212206+08:00",
-    "news_at": "2026-11-27 10:06:36"
+    "watchlist_at": "2026-11-27T10:21:36.843615+08:00",
+    "news_at": "2026-11-27 10:24:29"
   }
 }

@@ -1,34 +1,25 @@
 {
-  "generated_at": "2026-11-27T13:49:17+08:00",
+  "generated_at": "2026-11-27T14:08:29+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-27T13:48:04.313730+08:00",
+    "generated_at": "2026-11-27T14:07:18.349368+08:00",
     "date": "2026-11-27",
-    "turnover_yi": 15342.7,
+    "turnover_yi": 16681.9,
     "sentiment_score": 65,
     "sentiment_label": "偏热",
-    "up_count": 304,
-    "down_count": 29,
-    "advance_decline_ratio": 10.48,
+    "up_count": 297,
+    "down_count": 35,
+    "advance_decline_ratio": 8.49,
     "indices": [],
     "top_sectors": [],
     "nation_team": null
   },
   "watchlist": [
     {
-      "symbol": "688183",
-      "name": "生益电子",
-      "price": 93.69,
-      "pct": 16.39,
-      "turnover_rate": 1.35,
-      "sw_l1": "电子",
-      "sw_l2": "元件"
-    },
-    {
       "symbol": "300803",
       "name": "指南针",
-      "price": 45.53,
-      "pct": 16.27,
+      "price": 46.13,
+      "pct": 17.8,
       "turnover_rate": 2.39,
       "sw_l1": "计算机",
       "sw_l2": "软件开发"
@@ -36,17 +27,26 @@
     {
       "symbol": "300308",
       "name": "中际旭创",
-      "price": 498.91,
-      "pct": 15.98,
+      "price": 504.79,
+      "pct": 17.34,
       "turnover_rate": 2.2,
       "sw_l1": "通信",
       "sw_l2": "通信设备"
     },
     {
+      "symbol": "688183",
+      "name": "生益电子",
+      "price": 93.01,
+      "pct": 15.54,
+      "turnover_rate": 1.35,
+      "sw_l1": "电子",
+      "sw_l2": "元件"
+    },
+    {
       "symbol": "300285",
       "name": "国瓷材料",
-      "price": 36.79,
-      "pct": 13.03,
+      "price": 37.16,
+      "pct": 14.16,
       "turnover_rate": 6.41,
       "sw_l1": "电子",
       "sw_l2": "电子化学品Ⅱ"
@@ -79,36 +79,36 @@
       "sw_l2": "证券Ⅱ"
     },
     {
-      "symbol": "300033",
-      "name": "同花顺",
-      "price": 209.87,
-      "pct": 8.98,
-      "turnover_rate": 2.15,
-      "sw_l1": "计算机",
-      "sw_l2": "软件开发"
+      "symbol": "000657",
+      "name": "中钨高新",
+      "price": 36.16,
+      "pct": 9.34,
+      "turnover_rate": 2.87,
+      "sw_l1": "有色金属",
+      "sw_l2": "小金属"
     },
     {
       "symbol": "600176",
       "name": "中国巨石",
-      "price": 28.14,
-      "pct": 8.9,
+      "price": 28.24,
+      "pct": 9.29,
       "turnover_rate": 2.56,
       "sw_l1": "建筑材料",
       "sw_l2": "玻璃玻纤"
     },
     {
-      "symbol": "300059",
-      "name": "东方财富",
-      "price": 19.04,
-      "pct": 8.61,
-      "turnover_rate": 1.38,
-      "sw_l1": "非银金融",
-      "sw_l2": "证券Ⅱ"
+      "symbol": "300033",
+      "name": "同花顺",
+      "price": 209.93,
+      "pct": 9.01,
+      "turnover_rate": 2.15,
+      "sw_l1": "计算机",
+      "sw_l2": "软件开发"
     }
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-27 13:48:20",
+    "generated_at": "2026-11-27 14:07:33",
     "range": "2026-11-21 ~ 2026-11-27",
     "kpi": {
       "total": 18109,
@@ -274,9 +274,9 @@
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-27T13:48:04.313730+08:00",
+    "sentiment_at": "2026-11-27T14:07:18.349368+08:00",
     "brief_at": "",
-    "watchlist_at": "2026-11-27T13:42:35.284220+08:00",
-    "news_at": "2026-11-27 13:48:20"
+    "watchlist_at": "2026-11-27T14:01:42.035070+08:00",
+    "news_at": "2026-11-27 14:07:33"
   }
 }

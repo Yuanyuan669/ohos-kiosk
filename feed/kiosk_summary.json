@@ -1,70 +1,18 @@
 {
-  "generated_at": "2026-11-27T16:11:45+08:00",
+  "generated_at": "2026-11-27T19:43:06+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-27T15:39:10.475435+08:00",
+    "generated_at": "2026-11-27T19:39:23.526665+08:00",
     "date": "2026-11-27",
     "turnover_yi": 20175.7,
-    "sentiment_score": 70,
-    "sentiment_label": "偏热",
+    "sentiment_score": 80,
+    "sentiment_label": "过热",
     "up_count": 301,
     "down_count": 29,
     "advance_decline_ratio": 10.38,
-    "indices": [
-      {
-        "name": "上证指数",
-        "close": 3606.49,
-        "pct": 3.73
-      },
-      {
-        "name": "深证成指",
-        "close": 10814.02,
-        "pct": 7.24
-      },
-      {
-        "name": "创业板指",
-        "close": 2443.96,
-        "pct": 11.61
-      }
-    ],
-    "top_sectors": [
-      {
-        "name": "半导体",
-        "pct": 14.97,
-        "net_in_yi": 239.6
-      },
-      {
-        "name": "电子化学品",
-        "pct": 14.53,
-        "net_in_yi": 32.3
-      },
-      {
-        "name": "通信设备",
-        "pct": 11.46,
-        "net_in_yi": 176.7
-      },
-      {
-        "name": "软件开发",
-        "pct": 11.42,
-        "net_in_yi": 44.9
-      },
-      {
-        "name": "IT服务",
-        "pct": 11.36,
-        "net_in_yi": 51.7
-      }
-    ],
-    "nation_team": {
-      "turnover_date": "2026-11-27",
-      "shares_date": "2026-11-26",
-      "is_today": true,
-      "activity": "放量",
-      "ratio_vs_median": 2.35,
-      "tier1_turnover_yi": 210.3,
-      "confirmed_creation_yi": 29.0,
-      "stance": "无明显动作",
-      "confidence": "mid"
-    }
+    "indices": [],
+    "top_sectors": [],
+    "nation_team": null
   },
   "watchlist": [
     {
@@ -160,14 +108,14 @@
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-27 15:40:48",
+    "generated_at": "2026-11-27 19:41:53",
     "range": "2026-11-21 ~ 2026-11-27",
     "kpi": {
-      "total": 18681,
-      "themed": 7755,
-      "avg_impact": 0.415,
-      "pos": 4997,
-      "neg": 4295,
+      "total": 19241,
+      "themed": 7999,
+      "avg_impact": 0.414,
+      "pos": 5172,
+      "neg": 4385,
       "alerts": 100,
       "sources": 39
     },
@@ -320,15 +268,15 @@
       }
     ],
     "warnings": [
-      "2026-11-24 英文条目 1208 条 > 1000 阈值（统计提示：该日如需重打分应转 Windows；当前无需操作）",
-      "2026-11-25 英文条目 1207 条 > 1000 阈值（统计提示：该日如需重打分应转 Windows；当前无需操作）"
+      "2026-11-24 英文条目 1209 条 > 1000 阈值（统计提示：该日如需重打分应转 Windows；当前无需操作）",
+      "2026-11-25 英文条目 1210 条 > 1000 阈值（统计提示：该日如需重打分应转 Windows；当前无需操作）"
     ]
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-27T15:39:10.475435+08:00",
-    "brief_at": "2026-11-27 15:40:59",
-    "watchlist_at": "2026-11-27T15:32:28.538690+08:00",
-    "news_at": "2026-11-27 15:40:48"
+    "sentiment_at": "2026-11-27T19:39:23.526665+08:00",
+    "brief_at": "",
+    "watchlist_at": "2026-11-27T19:32:26.451787+08:00",
+    "news_at": "2026-11-27 19:41:53"
   }
 }

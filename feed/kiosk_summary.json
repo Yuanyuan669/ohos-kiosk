@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-27T14:08:29+08:00",
+  "generated_at": "2026-11-27T14:28:21+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-27T14:07:18.349368+08:00",
+    "generated_at": "2026-11-27T14:27:06.629328+08:00",
     "date": "2026-11-27",
-    "turnover_yi": 16681.9,
+    "turnover_yi": 17804.8,
     "sentiment_score": 65,
     "sentiment_label": "偏热",
-    "up_count": 297,
-    "down_count": 35,
-    "advance_decline_ratio": 8.49,
+    "up_count": 299,
+    "down_count": 34,
+    "advance_decline_ratio": 8.79,
     "indices": [],
     "top_sectors": [],
     "nation_team": null
@@ -18,8 +18,8 @@
     {
       "symbol": "300803",
       "name": "指南针",
-      "price": 46.13,
-      "pct": 17.8,
+      "price": 45.8,
+      "pct": 16.96,
       "turnover_rate": 2.39,
       "sw_l1": "计算机",
       "sw_l2": "软件开发"
@@ -27,8 +27,8 @@
     {
       "symbol": "300308",
       "name": "中际旭创",
-      "price": 504.79,
-      "pct": 17.34,
+      "price": 502.47,
+      "pct": 16.8,
       "turnover_rate": 2.2,
       "sw_l1": "通信",
       "sw_l2": "通信设备"
@@ -36,8 +36,8 @@
     {
       "symbol": "688183",
       "name": "生益电子",
-      "price": 93.01,
-      "pct": 15.54,
+      "price": 92.61,
+      "pct": 15.04,
       "turnover_rate": 1.35,
       "sw_l1": "电子",
       "sw_l2": "元件"
@@ -45,8 +45,8 @@
     {
       "symbol": "300285",
       "name": "国瓷材料",
-      "price": 37.16,
-      "pct": 14.16,
+      "price": 37.09,
+      "pct": 13.95,
       "turnover_rate": 6.41,
       "sw_l1": "电子",
       "sw_l2": "电子化学品Ⅱ"
@@ -81,8 +81,8 @@
     {
       "symbol": "000657",
       "name": "中钨高新",
-      "price": 36.16,
-      "pct": 9.34,
+      "price": 36.03,
+      "pct": 8.95,
       "turnover_rate": 2.87,
       "sw_l1": "有色金属",
       "sw_l2": "小金属"
@@ -90,25 +90,25 @@
     {
       "symbol": "600176",
       "name": "中国巨石",
-      "price": 28.24,
-      "pct": 9.29,
+      "price": 28.14,
+      "pct": 8.9,
       "turnover_rate": 2.56,
       "sw_l1": "建筑材料",
       "sw_l2": "玻璃玻纤"
     },
     {
-      "symbol": "300033",
-      "name": "同花顺",
-      "price": 209.93,
-      "pct": 9.01,
-      "turnover_rate": 2.15,
-      "sw_l1": "计算机",
-      "sw_l2": "软件开发"
+      "symbol": "600156",
+      "name": "华升股份",
+      "price": 10.49,
+      "pct": 8.59,
+      "turnover_rate": 2.39,
+      "sw_l1": "纺织服饰",
+      "sw_l2": "纺织制造"
     }
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-27 14:07:33",
+    "generated_at": "2026-11-27 14:27:22",
     "range": "2026-11-21 ~ 2026-11-27",
     "kpi": {
       "total": 18109,
@@ -274,9 +274,9 @@
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-27T14:07:18.349368+08:00",
+    "sentiment_at": "2026-11-27T14:27:06.629328+08:00",
     "brief_at": "",
-    "watchlist_at": "2026-11-27T14:01:42.035070+08:00",
-    "news_at": "2026-11-27 14:07:33"
+    "watchlist_at": "2026-11-27T14:21:35.721768+08:00",
+    "news_at": "2026-11-27 14:27:22"
   }
 }

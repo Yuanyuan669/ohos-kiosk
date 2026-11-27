@@ -1,114 +1,114 @@
 {
-  "generated_at": "2026-11-27T10:25:25+08:00",
+  "generated_at": "2026-11-27T10:49:07+08:00",
   "market": {
     "ok": true,
-    "generated_at": "2026-11-27T10:24:14.782745+08:00",
+    "generated_at": "2026-11-27T10:47:57.549070+08:00",
     "date": "2026-11-27",
-    "turnover_yi": 5473.2,
-    "sentiment_score": 45,
-    "sentiment_label": "偏冷",
-    "up_count": 153,
-    "down_count": 173,
-    "advance_decline_ratio": 0.88,
+    "turnover_yi": 7059.4,
+    "sentiment_score": 55,
+    "sentiment_label": "中性",
+    "up_count": 187,
+    "down_count": 142,
+    "advance_decline_ratio": 1.32,
     "indices": [],
     "top_sectors": [],
     "nation_team": null
   },
   "watchlist": [
     {
-      "symbol": "603122",
-      "name": "合富中国",
-      "price": 9.02,
-      "pct": -6.53,
-      "turnover_rate": 6.89,
-      "sw_l1": "医药生物",
-      "sw_l2": "医药商业"
-    },
-    {
       "symbol": "002670",
       "name": "国盛证券",
-      "price": 9.26,
-      "pct": 4.99,
+      "price": 9.55,
+      "pct": 8.28,
       "turnover_rate": 1.11,
       "sw_l1": "非银金融",
       "sw_l2": "证券Ⅱ"
     },
     {
-      "symbol": "600156",
-      "name": "华升股份",
-      "price": 9.99,
-      "pct": 3.42,
-      "turnover_rate": 2.39,
-      "sw_l1": "纺织服饰",
-      "sw_l2": "纺织制造"
+      "symbol": "603122",
+      "name": "合富中国",
+      "price": 9.04,
+      "pct": -6.32,
+      "turnover_rate": 6.89,
+      "sw_l1": "医药生物",
+      "sw_l2": "医药商业"
     },
     {
       "symbol": "002281",
       "name": "光迅科技",
-      "price": 81.45,
-      "pct": 2.92,
+      "price": 83.8,
+      "pct": 5.89,
       "turnover_rate": 3.42,
       "sw_l1": "通信",
       "sw_l2": "通信设备"
     },
     {
+      "symbol": "300308",
+      "name": "中际旭创",
+      "price": 449.88,
+      "pct": 4.58,
+      "turnover_rate": 2.2,
+      "sw_l1": "通信",
+      "sw_l2": "通信设备"
+    },
+    {
+      "symbol": "002384",
+      "name": "东山精密",
+      "price": 75.59,
+      "pct": 4.23,
+      "turnover_rate": 3.29,
+      "sw_l1": "电子",
+      "sw_l2": "元件"
+    },
+    {
       "symbol": "300803",
       "name": "指南针",
-      "price": 40.16,
-      "pct": 2.55,
+      "price": 40.68,
+      "pct": 3.88,
       "turnover_rate": 2.39,
       "sw_l1": "计算机",
       "sw_l2": "软件开发"
     },
     {
-      "symbol": "688183",
-      "name": "生益电子",
-      "price": 78.47,
-      "pct": -2.52,
-      "turnover_rate": 1.35,
+      "symbol": "300285",
+      "name": "国瓷材料",
+      "price": 33.7,
+      "pct": 3.53,
+      "turnover_rate": 6.41,
       "sw_l1": "电子",
-      "sw_l2": "元件"
+      "sw_l2": "电子化学品Ⅱ"
     },
     {
-      "symbol": "000712",
-      "name": "锦龙股份",
-      "price": 7.76,
-      "pct": 2.37,
-      "turnover_rate": 11.19,
-      "sw_l1": "非银金融",
-      "sw_l2": "证券Ⅱ"
+      "symbol": "600490",
+      "name": "鹏欣资源",
+      "price": 4.68,
+      "pct": 3.31,
+      "turnover_rate": 1.17,
+      "sw_l1": "有色金属",
+      "sw_l2": "工业金属"
     },
     {
-      "symbol": "001236",
-      "name": "弘业期货",
-      "price": 6.11,
-      "pct": 1.83,
-      "turnover_rate": 2.09,
-      "sw_l1": "非银金融",
-      "sw_l2": "多元金融"
+      "symbol": "600156",
+      "name": "华升股份",
+      "price": 9.97,
+      "pct": 3.21,
+      "turnover_rate": 2.39,
+      "sw_l1": "纺织服饰",
+      "sw_l2": "纺织制造"
     },
     {
-      "symbol": "002673",
-      "name": "西部证券",
-      "price": 5.78,
-      "pct": 1.76,
-      "turnover_rate": 0.6,
-      "sw_l1": "非银金融",
-      "sw_l2": "证券Ⅱ"
-    },
-    {
-      "symbol": "300308",
-      "name": "中际旭创",
-      "price": 437.62,
-      "pct": 1.73,
-      "turnover_rate": 2.2,
-      "sw_l1": "通信",
-      "sw_l2": "通信设备"
+      "symbol": "000657",
+      "name": "中钨高新",
+      "price": 34.1,
+      "pct": 3.11,
+      "turnover_rate": 2.87,
+      "sw_l1": "有色金属",
+      "sw_l2": "小金属"
     }
   ],
   "news": {
     "ok": true,
-    "generated_at": "2026-11-27 10:24:29",
+    "generated_at": "2026-11-27 10:48:12",
     "range": "2026-11-21 ~ 2026-11-27",
     "kpi": {
       "total": 17569,
@@ -274,9 +274,9 @@
   },
   "status": {
     "ok": true,
-    "sentiment_at": "2026-11-27T10:24:14.782745+08:00",
+    "sentiment_at": "2026-11-27T10:47:57.549070+08:00",
     "brief_at": "",
-    "watchlist_at": "2026-11-27T10:21:36.843615+08:00",
-    "news_at": "2026-11-27 10:24:29"
+    "watchlist_at": "2026-11-27T10:44:48.079017+08:00",
+    "news_at": "2026-11-27 10:48:12"
   }
 }
